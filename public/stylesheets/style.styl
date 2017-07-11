@@ -1,0 +1,285 @@
+@import "reset.css"
+
+body
+  font: normal 14px/140% Helvetica, Arial, sans-serif
+  background-color: rgb(0, 121, 191)
+  color: #fff
+  height: 100vh
+  width: 100vw
+  header
+    width: 100%
+    background-color: #026AA7
+    overflow: hidden
+    position: relative
+    #dashboard
+      width: 100%
+      display: flex
+      justify-content: space-between
+      padding: 5px
+      .search-bar
+        position: relative
+        input
+          background-color: rgba(255,255,255,.3)
+          border-radius: 3px
+          border: none
+          color: rgba(255,255,255,.5)
+          font-size: 13px
+          height: 30px
+          margin: 0
+          min-height: 30px
+          padding-right: 30px
+          padding-left: 8px
+          line-height: 19px
+          width: 180px
+          &:hover
+            background-color: rgba(255,255,255,.4)
+        .search-icon
+          right: 0
+          top: 0
+          cursor: pointer
+          height: 30px
+          width: 30px
+          position: absolute
+          z-index: 2
+          &:before
+            background: url('/images/sprite.png') 180px -60px
+            content: ""
+            width: 100%
+            height: 100%
+            z-index: 3
+            display: block
+            position: relative
+      .logo
+        height: 30px
+        width: 80px
+        background: url('/images/header-logo.png')
+        position: absolute
+        left: 50%
+        transform: translateX(-50%)
+      .info
+        display: flex
+        .user
+          margin-right: 8px
+        .box
+          background: linear-gradient(to bottom,rgba(255,255,255,.3) 0,rgba(255,255,255,.2) 100%)
+          color: #f3f3f3
+          display: block
+          height: 30px
+          margin-right: 8px
+          width: 30px
+          &:hover
+            background: linear-gradient(to bottom,rgba(255,255,255,.4) 0,rgba(255,255,255,.3) 100%)
+          *
+            background: url('/images/sprite.png') 0 0
+            display: block
+            width: 100%
+            height: 100%
+          .user-icon
+            background-position: -30px 0
+          .notification-icon
+            background-position: -420px -60px
+
+input[type=text]
+  box-sizing: border-box
+  -webkit-appearance: none
+  background-color: #E2E4E6
+  border: 1px solid #CDD2D4
+  border-radius: 3px
+  display: block
+  margin-bottom: 9pt
+  min-height: 2pc
+  padding: 7px
+  font-size: 14px
+  &:focus
+    outline: 0
+  
+input[type=submit]
+  border: none
+  box-shadow: 0 1px 0 #959DA1
+  cursor: pointer
+  display: inline-block
+  font-weight: 700
+  line-height: 22px
+  padding: 4px 20px
+  text-align: center
+  border-radius: 3px
+  font-size: 14px
+  &.primary
+    background: linear-gradient(to bottom,#61BD4F 0,#5AAC44 100%)
+    box-shadow: 0 1px 0 #3F6F21
+    color: #fff
+    &:hover
+      background: linear-gradient(to bottom,#5AAC44 0,#519839 100%)
+
+main
+  height: 100%
+  width: 100%
+  position: relative
+  #board-wrapper
+    height: 100%
+    display: flex
+    flex-direction: column
+    .board-header
+      padding: 8px 8px 0
+      margin-bottom: 10px
+      .board-title-container
+        cursor: default
+        font-size: 18px
+        font-weight: 700
+        line-height: 30px
+        margin: 0 10px 0 4px
+        height: 30px
+        border-radius: 3px
+        display: inline-block
+        color: #fff
+        &:hover
+          background: rgba(0,0,0,.12)
+          cursor: pointer
+        .board-title
+          padding: 0 8px
+      .private
+        font-size: 12px
+        &:before
+          content: ''
+          display: inline-block
+          background: url("/images/sprite.png") -309px -127px
+          height: 12px
+          width: 12px
+          padding-right: 5px
+    #board
+      position: relative
+      overflow: hidden
+      height: 100%
+      .board-canvas
+        flex-grow: 1
+        display: flex
+        overflow-y: hidden
+        overflow-x: auto
+        white-space: nowrap
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        #lists
+          display: flex
+          height: 100%
+          .list
+            margin: 0 5px
+            width: 270px
+            background: #E2E4E6
+            border-radius: 3px
+            box-sizing: border-box
+            display: flex
+            -webkit-flex-direction: column
+            -ms-flex-direction: column
+            flex-direction: column
+            max-height: 100%
+            position: relative
+            white-space: normal
+            &:first-child
+              margin-left: 10px
+             .open-card-composer
+              padding: 10px 15px
+              color: rgb(77, 77, 77)
+            .list-header
+              display: flex
+              flex: 0 0 auto
+              padding: 8px 10px
+              position: relative
+              min-height: 18px
+              textarea
+                box-sizing: border-box
+                background: 0 0
+                border: none
+                border-radius: 3px
+                box-shadow: none
+                font-weight: 700
+                font-size: 14px
+                height: 18px
+                min-height: 18px
+                padding: 3px 5px
+                resize: none
+                max-height: 16pc
+                flex-grow: 1
+                &:focus
+                  background-color: rgba(255,255,255,.85)
+                  outline: 0
+              .list-hamburger
+                display: block
+                padding: 4px
+                height: 18px
+                width: 18px
+                text-align: center
+                &:hover
+                  border-radius: 3px
+                  background: #CDD2D4
+                .list-icon
+                  font-size: 14px
+                  color: #444
+                  width: 100%
+                  height: 100%
+                  display: block
+                  position: relative
+                  bottom: 4px
+        .add-list
+          height: 77px
+          padding: 4px
+          border-radius: 3px
+          background-color: #E2E4E6
+          transition: background 85ms ease-in,
+                      opacity 40ms ease-in,
+                      border-color 85ms ease-in
+          width: 270px
+          margin: 0 5px
+          vertical-align: top
+          white-space: nowrap
+          &.idle
+            background: rgba(0,0,0,.12)
+            cursor: pointer
+            color: #fff
+            height: 32px
+            &:hover
+              background: rgba(0,0,0,.3)
+            .placeholder
+              display: block
+            .list-name-input
+              background: 0 0
+              border-color: transparent
+              box-shadow: none
+              cursor: pointer
+              display: none
+              margin: 0
+            .list-add-controls
+              height: 0
+              margin: 0
+              overflow: hidden
+          .placeholder
+            display: none
+            padding: 7px
+            color: rgba(255,255,255,.7)
+            -webkit-transition: color 85ms ease-in
+            transition: color 85ms ease-in
+          .list-name-input
+            background: rgba(0,0,0,.05)
+            border-color: #aaa
+            box-shadow: inset 0 1px 8px rgba(0,0,0,.15)
+            display: block
+            margin: 0
+            -webkit-transition: margin 85ms ease-in,background 85ms ease-in
+            transition: margin 85ms ease-in,background 85ms ease-in
+            width: 100%
+          .list-add-controls
+            height: 2pc
+            transition: margin 85ms ease-in,height 85ms ease-in
+            .cancel-edit
+              display: inline-block
+              height: 30px
+              width: 30px
+              margin-left: 5px
+              background: url('/images/sprite.png') 60px -30px
+              position: relative
+              top: 10px
+              &:hover
+                background-position: 60px 0
+          
