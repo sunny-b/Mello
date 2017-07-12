@@ -3,7 +3,7 @@ var BoardView = Backbone.View.extend({
   id: 'board-wrapper',
   events: {
     "click .add-list.idle": "openAddList",
-    "click .cancel-edit": "closeAddList",
+    "click .add-list .cancel-edit": "closeAddList",
     "submit .add-list form": "addList"
   },
   render: function() {
@@ -14,9 +14,9 @@ var BoardView = Backbone.View.extend({
       title: this.title
     }));
 
-    this.collection.each(function(model) {
+    this.lists.each(function(model) {
       modelView = new ListView({ model: model});
-      self.$el.find('ul').append(modelView.el);
+      self.$el.find('#lists').append(modelView.el);
     });
     
     App.$main.html(this.$el);
@@ -34,12 +34,19 @@ var BoardView = Backbone.View.extend({
   },
   addList: function(e) {
     e.preventDefault();
-    var $f = this.$('form');
+    e.stopPropagation();
+    debugger;
+    var $f = this.$('#listForm');
+    var listName = $f.find('.list-name-input').val().trim();
+    
+    if (listName.length === 0) return false;
 
     App.trigger('addList', $f);
   },
   initialize: function(options) {
     this.title = options.title;
+    this.lists = options.lists;
+    this.cards = options.cards;
     this.render()
   }
 });

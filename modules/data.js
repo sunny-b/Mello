@@ -10,16 +10,25 @@ module.exports = {
     return this.__readFile();
   },
   getLists: function() {
-    return this.__readFile().lists;
+    return this.get().lists;
+  },
+  getCards: function() {
+    return this.get().cards;
   },
   getLastListID: function() {
     return this.get().lastListID;
   },
-  setLists: function(data) {
+  getLastCardID: function() {
+    return this.get().lastCardID;
+  },
+  setLists: function(lists, isNew) {
     var allData = this.get();
-    allData.lastListID = this.getLastListID() + 1;
-    allData.lists = data;
-    
+
+    if (isNew) {
+      allData.lastListID = this.getLastListID() + 1;
+    }
+
+    allData.lists = lists;
     fs.writeFileSync(file_path, JSON.stringify(allData), 'utf8');
   }
 };
