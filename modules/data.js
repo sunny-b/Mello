@@ -26,6 +26,8 @@ module.exports = {
 
     if (isNew) {
       allData.lastListID = this.getLastListID() + 1;
+    } else {
+      allData.lastCardID = this.getLastCardID() + 1;
     }
 
     allData.lists = lists;

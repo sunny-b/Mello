@@ -45,8 +45,6 @@ body header #dashboard .search-bar .search-icon {
   right: 0;
   top: 0;
   cursor: pointer;
-  height: 30px;
-  width: 30px;
   position: absolute;
   z-index: 2;
 }
@@ -77,9 +75,7 @@ body header #dashboard .info .box {
   background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0, rgba(255,255,255,0.2) 100%);
   color: #f3f3f3;
   display: block;
-  height: 30px;
   margin-right: 8px;
-  width: 30px;
 }
 body header #dashboard .info .box:hover {
   background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0, rgba(255,255,255,0.3) 100%);
@@ -324,18 +320,14 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
 .card-add-controls {
   transition: margin 85ms ease-in, height 85ms ease-in;
 }
-.list-add-controls .cancel-edit,
-.card-add-controls .cancel-edit {
+.cancel-edit {
   display: inline-block;
-  height: 30px;
-  width: 30px;
   margin-left: 5px;
   background: url("/images/sprite.png") 60px -30px;
   position: relative;
   top: 10px;
 }
-.list-add-controls .cancel-edit:hover,
-.card-add-controls .cancel-edit:hover {
+.cancel-edit:hover {
   background-position: 60px 0;
 }
 .extra-space {
@@ -352,18 +344,17 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
   margin: 0 4px;
   padding: 0 4px 8px;
 }
-.card-composer .list-card {
+.list-card {
   background-color: #fff;
   border-bottom: 1px solid #ccc;
   border-radius: 3px;
-  cursor: pointer;
   max-width: 300px;
   min-height: 20px;
   position: relative;
   z-index: 0;
   padding: 6px 6px 2px 8px;
 }
-.card-composer .list-card textarea {
+.list-card textarea {
   background: 0 0;
   height: 100%;
   width: 100%;
@@ -376,7 +367,165 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
   overflow-y: auto;
   padding: 0;
 }
-.card-composer .list-card textarea:focus,
-.card-composer .list-card textarea:active {
+.list-card textarea:focus,
+.list-card textarea:active {
   outline: 0;
+}
+#cards {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  margin: 0 4px;
+  padding: 0 4px;
+  z-index: 1;
+  min-height: 0;
+}
+#cards .card {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-bottom: 6px;
+  max-width: 300px;
+  min-height: 20px;
+  position: relative;
+  z-index: 0;
+}
+#cards .card:hover {
+  background-color: #edeff0;
+  border-bottom-color: #d6dadc;
+}
+#cards .card:hover .card-edit-icon {
+  visibility: visible;
+}
+#cards .card:hover .card-edit-icon:hover {
+  background-color: #d6dadc;
+  background-position: -552px -87px;
+}
+#cards .card .card-edit-icon {
+  background: url("/images/sprite.png") -552px -105px;
+  background-color: #edeff0;
+  background-clip: padding-box;
+  background-origin: padding-box;
+  border-radius: 3px;
+  opacity: 0.8;
+  padding: 4px;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  height: 18px;
+  width: 18px;
+  visibility: hidden;
+  z-index: 40;
+}
+#cards .card .card-details {
+  overflow: hidden;
+  padding: 6px 6px 2px 8px;
+  position: relative;
+  z-index: 10;
+}
+#cards .card .card-details .card-title {
+  clear: both;
+  font-weight: 400;
+  margin: 0 0 4px;
+  overflow: hidden;
+  word-wrap: break-word;
+  color: #4d4d4d;
+  display: block;
+}
+.icon-lg {
+  height: 30px;
+  font-size: 20px;
+  line-height: 30px;
+  width: 30px;
+}
+.quick-card-editor {
+  background: rgba(0,0,0,0.6);
+  bottom: 0;
+  color: #fff;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+.quick-card-editor .close-icon {
+  color: rgba(255,255,255,0.6);
+  padding: 9px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  -webkit-transition-property: -webkit-transform, color;
+  transition-property: transform, color;
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
+}
+.quick-card-editor .quick-card-edit-box {
+  position: absolute;
+  width: 254px;
+}
+.pop-over {
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid #d6dadc;
+  border-bottom-color: #c4c9cc;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.15);
+  display: none;
+  position: absolute;
+  width: 300px;
+  z-index: 70;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+.pop-over.is-shown {
+  display: block;
+}
+.pop-over .pop-over-header {
+  height: 36px;
+  position: relative;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.pop-over .pop-over-header .pop-header-title {
+  box-sizing: border-box;
+  color: #8c8c8c;
+  display: block;
+  line-height: 36px;
+  border-bottom: 1px solid #d6dadc;
+  margin: 0 10px;
+  overflow: hidden;
+  padding: 0 2pc;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  z-index: 1;
+}
+.pop-over .pop-over-header .pop-close-btn {
+  padding: 10px 10px 10px 4px;
+  position: absolute;
+  top: 8px;
+  right: 18px;
+  z-index: 2;
+  line-height: 18px;
+  background: url("/images/sprite.png") -415px -107px;
+}
+.pop-over .pop-over-header .pop-close-btn:hover {
+  background-position: -415px -89px;
+}
+.pop-over .pop-over-content {
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 10px 10px;
+}
+.pop-over .pop-over-content .pop-over-list li > a {
+  cursor: pointer;
+  display: block;
+  font-weight: 700;
+  padding: 6px 10px;
+  position: relative;
+  margin: 0 -10px;
+  text-decoration: none;
+  color: #444;
+}
+.pop-over .pop-over-content .pop-over-list li > a:hover {
+  background-color: #298fca;
+  color: #fff;
 }

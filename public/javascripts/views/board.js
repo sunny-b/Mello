@@ -1,6 +1,6 @@
 var BoardView = Backbone.View.extend({
   template: App.templates.board,
-  id: 'board-wrapper',
+  el: App.$main.get(0),
   events: {
     "click .add-list.idle": "openAddList",
     "click .add-list .cancel-edit": "closeAddList",
@@ -14,12 +14,13 @@ var BoardView = Backbone.View.extend({
       title: this.title
     }));
 
-    this.lists.each(function(model) {
-      modelView = new ListView({ model: model});
-      self.$el.find('#lists').append(modelView.el);
+    this.collection.each(function(model) {
+      modelView = new ListView({
+        model: model,
+        collection: new CardsCollection(model.get('cards'))
+      });
+      self.$('#lists').append(modelView.el);
     });
-    
-    App.$main.html(this.$el);
   },
   openAddList: function(e) {
     e.preventDefault();
@@ -35,18 +36,29 @@ var BoardView = Backbone.View.extend({
   addList: function(e) {
     e.preventDefault();
     e.stopPropagation();
-    debugger;
+
     var $f = this.$('#listForm');
     var listName = $f.find('.list-name-input').val().trim();
     
     if (listName.length === 0) return false;
 
-    App.trigger('addList', $f);
+    this.sendAJAX($f);
+  },
+  sendAJAX: function($f) {
+    var self = this;
+
+    $.ajax({
+      url: $f.attr('action'),
+      type: $f.attr('method'),
+      data: $f.serialize(),
+      success: function(json) {
+        self.collection.add(json);
+      }
+    });
   },
   initialize: function(options) {
     this.title = options.title;
-    this.lists = options.lists;
-    this.cards = options.cards;
-    this.render()
+    this.render();
+    this.listenTo(this.collection, 'add', this.render.bind(this));
   }
 });

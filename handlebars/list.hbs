@@ -1,6 +1,6 @@
 <div class="list" data-id="{{id}}">
   <div class="list-header">
-    <textarea spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">
+    <textarea class="list-title" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">
       {{title}}
     </textarea>
     <a class="list-hamburger" href="#">
@@ -8,16 +8,17 @@
     </a>
   </div>
   <div class="list-cards">
-    <ul id="card-list"></ul>
+    <ul id="cards">
+    </ul>
   </div>
   <div class="card-composer hide">
     <form class="cardForm" method="post" action="/cards">
       <div class="list-card composer">
-        <textarea name="title" class="list-card-composer-textarea card-title" dir="auto" style="overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
+        <textarea name="title" class="list-card-composer-textarea new-card-title" dir="auto" style="overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
       </div>
       <div class="card-add-controls">
         <input class="primary save-edit" type="submit" value="Add">
-        <a class="cancel-edit" href="#"></a>
+        <a class="cancel-edit icon-lg" href="#"></a>
       </div>
     </form>
   </div>

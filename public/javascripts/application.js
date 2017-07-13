@@ -2,44 +2,33 @@ var App = {
   templates: JST,
   $header: $('header'),
   $main: $('main'),
+  $popUp: $('.pop-over'),
   renderPage: function() {
     this.headerView = new HeaderView();
     this.boardView = new BoardView({
-      lists: this.lists,
-      cards: this.cards,
-      title: 'You Board'
+      collection: this.lists,
+      title: 'Your Board'
     });
   },
-  addList: function($f) {
-    var self = this;
-    $.ajax({
-      url: $f.attr('action'),
-      type: $f.attr('method'),
-      data: $f.serialize(),
-      success: function(json) {
-        self.lists.add(json);
-        self.renderPage();
-      }
-    });
+  openCardEditor: function(card) {
+    this.cardEditor = new QuickEditView({ model: card });
+    this.$main.append(this.cardEditor.el);
   },
-  addCard: function($f, listID, cardName) {
-    var self = this;
-    $.ajax({
-      url: $f.attr('action'),
-      type: $f.attr('method'),
-      data: {
-        title: cardName,
-        listID: listID
-      },
-      success: function(json) {
-        self.renderPage();
-      }
-    });
+  removeCardEditor: function() {
+    this.cardEditor.remove();
+  },
+  openPopOver: function(model, top, left) {
+    this.popOver = new PopOverView({ model: this.model });
+    this.$popUp.html(this.popOver.el)
+               .css({ top: top + 'px', left: left + 'px' })
+               .addClass('is-shown');
   },
   binds: function() {
     _.extend(this, Backbone.Events);
-    this.on('addList', this.addList.bind(this));
-    this.on('addCard', this.addCard.bind(this));
+    this.on('openCardEditor', this.openCardEditor.bind(this));
+    this.on('removeCardEditor', this.removeCardEditor.bind(this));
+    this.on('renderPage', this.renderPage.bind(this));
+    this.on('openPopOver', this.openPopOver.bind(this));
   },
   init: function() {
     this.binds();

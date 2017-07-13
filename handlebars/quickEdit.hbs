@@ -1,0 +1,11 @@
+<div class="quick-card-edit-box" style="top: {{top}}px; left: {{left}}px;">
+  <form method="put" action="/cards" class="card-editor-form">
+    <div class="list-card">
+      <div class="list-card-details">
+        <textarea class="list-card-edit-title edit-card-title" dir="auto" style="overflow: hidden; word-wrap: break-word; resize: none; height: 90px;">{{title}}</textarea>
+      </div>
+    </div>
+    <input class="primary save-edits" type="submit" value="Save">
+    <span class="cancel-edit icon-lg"></span>
+  </form>
+</div>
