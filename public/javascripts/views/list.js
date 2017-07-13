@@ -1,12 +1,14 @@
 var ListView = Backbone.View.extend({
   template: App.templates.list,
   tagName: 'li',
+  $popUp: $('.pop-over'),
   events: {
     "click .open-card-composer": "openCardComposer",
     "click .cancel-edit": "closeCardComposer",
     "submit .list": "addCard",
     "blur .list-title": "updateListTitle",
-    "click .list-hamburger": "openPopOver"
+    "click .list-hamburger": "openPopOver",
+    "click .pop-close-btn": "closePopOver"
   },
   openCardComposer: function(e) {
     e.preventDefault();
@@ -28,11 +30,12 @@ var ListView = Backbone.View.extend({
     e.preventDefault();
 
     var $e = $(e.currentTarget);
+    var elementHeight = 10;
     var offset = $e.offset();
-    var top = offset.top;
+    var top = offset.top - elementHeight;
     var left = offset.left;
 
-    App.trigger('openPopOver', this.model, top, left);
+    App.trigger('updatePopOver', this.model, top, left);
   },
   addCard: function(e) {
     e.preventDefault();
