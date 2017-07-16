@@ -6,11 +6,13 @@
     <div class="window-header">
       <span class="window-header-icon icon-lg icon-card"></span>
       <div class="window-title">
-        <h2 class="card-detail-title-assist js-title-helper" dir="auto">{{title}}</h2>
-        <textarea class="mod-card-back-title js-card-detail-title-input" dir="auto" style="overflow: hidden; word-wrap: break-word; height: 30px;"></textarea>
+        <textarea class="mod-card-back-title js-card-detail-title-input" dir="auto" style="overflow: hidden; word-wrap: break-word; height: 30px;">{{title}}</textarea>
       </div>
       <div class="window-header-inline-content quiet js-current-list">
-        <p class="u-inline-block u-bottom">in list <a class="js-open-move-from-header" href="#">{{listName}}</a></p>
+        <p class="u-inline-block u-bottom">
+          in list
+          <a class="js-open-move-from-header" href="#">{{listName}}</a>
+        </p>
       </div>
       <div class="window-header-inline-content hide js-subscribed-indicator-header">
         <span class="icon-sm icon-subscribe"></span>
@@ -18,22 +20,38 @@
     </div>
 
     <div class="window-main-col">
-      <div class="card-detail-item card-detail-item-labels u-clearfix hide js-card-detail-labels">
-        <h3 class="card-detail-item-header">Labels</h3>
-        <div class="u-clearfix js-card-detail-labels-list js-edit-label">
-          <a class="card-detail-item-add-button dark-hover js-details-edit-labels">
-            <span class="icon-sm icon-add"></span>
-          </a>
-        </div>
-      </div>
-
-      <div class="card-detail-item card-detail-item-block u-clearfix editable">
-        <div class="card-detail-edit edit">
-          <textarea class="field" placeholder="Add a more detailed description…" style="overflow: hidden; word-wrap: break-word; resize: none; height: 108px;"></textarea>
-          <div class="edit-controls u-clearfix">
-            <input class="primary confirm mod-submit-edit js-save-edit" type="submit" value="Save">
-            <a class="icon-lg icon-close dark-hover cancel js-cancel-edit" href="#"></a>
+      <div class="card-detail-data u-gutter">
+        <div class="card-detail-item card-detail-item-labels u-clearfix hide js-card-detail-labels">
+          <h3 class="card-detail-item-header">Labels</h3>
+          <div class="u-clearfix js-card-detail-labels-list js-edit-label">
+            {{#each labels}}
+            <span class="card-label card-label-{{this.color}} mod-card-detail mod-clickable" title="">&nbsp;</span>
+            {{/each}}
+            <a class="card-detail-item-add-button dark-hover js-details-edit-labels">
+              <span class="icon-sm icon-add"></span>
+            </a>
           </div>
+        </div>
+      
+        <div class="card-detail-item js-card-detail-due-date hide">
+          <h3 class="card-detail-item-header">Due Date</h3>
+          <span class="card-detail-badge card-detail-due-date-badge js-card-detail-due-date-badge is-clickable is-due-future" title="This card is due later.">
+            <span class="card-detail-badge-due-date-complete-box js-card-detail-due-date-badge-complete js-details-toggle-due-date-complete">
+              <span class="icon-sm icon-check card-detail-badge-due-date-complete-icon"></span>
+            </span>
+            <span class="js-date-text card-detail-due-date-text js-details-edit-due-date">{{dueDate}}</span>
+          </span>
+        </div>
+
+        <div class="card-detail-item card-detail-item-block u-clearfix editable">
+          <div class="description-content js-desc-content">
+            <div class="card-detail-edit edit">
+              <textarea class="field" placeholder="Add a more detailed description…" style="overflow: hidden; word-wrap: break-word; resize: none; height: 108px;"></textarea>
+              <div class="edit-controls u-clearfix">
+                <input class="primary confirm mod-submit-edit js-save-edit" type="submit" value="Save">
+                <a class="icon-lg icon-close dark-hover cancel cancel-edit" href="#"></a>
+              </div>
+            </div>
         </div>
       </div>
 

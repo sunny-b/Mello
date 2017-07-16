@@ -9,6 +9,12 @@ var App = {
       title: 'Your Board'
     });
   },
+  renderCardModal: function(model, listID) {
+    this.cardModal = new CardModal({
+      model: model,
+      list: this.lists.findWhere({ id: listId })
+    });
+  },
   openCardEditor: function(card) {
     this.cardEditor = new QuickEditView({ model: card });
     this.$main.append(this.cardEditor.el);
