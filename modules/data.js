@@ -21,7 +21,7 @@ module.exports = {
   getLastCardID: function() {
     return this.get().lastCardID;
   },
-  setLists: function(lists, isNew) {
+  set: function(lists, isNew) {
     var allData = this.get();
 
     if (isNew) {

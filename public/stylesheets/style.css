@@ -243,18 +243,21 @@ main #board-wrapper #board .board-canvas #lists .list .list-header textarea:focu
   background-color: rgba(255,255,255,0.85);
   outline: 0;
 }
-main #board-wrapper #board .board-canvas #lists .list .list-header .list-hamburger {
+main #board-wrapper #board .board-canvas #lists .list .list-header .list-hamburger,
+main #board-wrapper #board .board-canvas #lists .list .list-header .js-list-subscribed {
   display: block;
   padding: 4px;
   height: 18px;
   width: 18px;
   text-align: center;
 }
-main #board-wrapper #board .board-canvas #lists .list .list-header .list-hamburger:hover {
+main #board-wrapper #board .board-canvas #lists .list .list-header .list-hamburger:hover,
+main #board-wrapper #board .board-canvas #lists .list .list-header .js-list-subscribed:hover {
   border-radius: 3px;
   background: #cdd2d4;
 }
-main #board-wrapper #board .board-canvas #lists .list .list-header .list-hamburger .list-icon {
+main #board-wrapper #board .board-canvas #lists .list .list-header .list-hamburger .list-icon,
+main #board-wrapper #board .board-canvas #lists .list .list-header .js-list-subscribed .list-icon {
   font-size: 14px;
   color: #444;
   width: 100%;
@@ -316,6 +319,27 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
   transition: margin 85ms ease-in, background 85ms ease-in;
   width: 100%;
 }
+.list-extras {
+  display: flex;
+  right: 4px;
+  top: 4px;
+}
+.icon-sm {
+  height: 18px;
+  line-height: 18px;
+  width: 18px;
+  display: inline-block;
+}
+.icon-check {
+  background: url("/images/sprite.png") -178px -90px;
+  margin-left: 3px;
+}
+.icon-subscribe {
+  background: url("/images/sprite.png") -305px -90px;
+  height: 100%;
+  width: 100%;
+  display: block;
+}
 .list-add-controls,
 .card-add-controls {
   transition: margin 85ms ease-in, height 85ms ease-in;
@@ -326,6 +350,9 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
   background: url("/images/sprite.png") 60px -30px;
   position: relative;
   top: 10px;
+}
+.cancel-edit.white-hover:hover {
+  background-position: 60px -60px;
 }
 .cancel-edit:hover {
   background-position: 60px 0;
@@ -346,7 +373,6 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
 }
 .list-card {
   background-color: #fff;
-  border-bottom: 1px solid #ccc;
   border-radius: 3px;
   max-width: 300px;
   min-height: 20px;
@@ -366,6 +392,16 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
   min-height: 54px;
   overflow-y: auto;
   padding: 0;
+}
+.list-card textarea.focus {
+  background-color: #e2e4e6;
+  border: 1px solid #cdd2d4;
+}
+.list-card textarea.focus:focus,
+.list-card textarea.focus:active {
+  background: #fff;
+  border-color: #298fca;
+  box-shadow: 0 0 2px #298fca;
 }
 .list-card textarea:focus,
 .list-card textarea:active {
@@ -515,9 +551,74 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
   overflow-y: auto;
   padding: 0 10px 10px;
 }
-.pop-over .pop-over-content .pop-over-list li > a {
+.pop-over .pop-over-content .form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.pop-over .pop-over-content .form-grid .button-link.setting {
+  height: 52px;
+  float: left;
+  position: relative;
+  margin-top: 0;
+}
+.pop-over .pop-over-content .form-grid .form-grid-child-full {
+  flex: 1 1 100%;
+  margin: 0 0 8px;
+}
+.pop-over .pop-over-content .form-grid .button-link {
+  background: linear-gradient(to bottom, #fff 0, #f8f9f9 100%);
+  box-sizing: border-box;
+  border: 1px solid #e2e4e6;
+  border-bottom-color: #cdd2d4;
   cursor: pointer;
   display: block;
+  font-weight: 700;
+  height: 34px;
+  margin-top: 6px;
+  max-width: 300px;
+  overflow: hidden;
+  padding: 7px;
+  position: relative;
+  text-overflow: ellipsis;
+  user-select: none;
+  white-space: nowrap;
+  border-radius: 3px;
+}
+.pop-over .pop-over-content .form-grid .button-link .label {
+  color: #8c8c8c;
+  display: block;
+  font-size: 9pt;
+  line-height: 14px;
+  margin-bottom: 0;
+}
+.pop-over .pop-over-content .form-grid .button-link .value {
+  display: block;
+  font-size: 18px;
+  line-height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000;
+}
+.pop-over .pop-over-content .form-grid .button-link label {
+  display: none;
+}
+.pop-over .pop-over-content .form-grid .button-link select {
+  border: none;
+  cursor: pointer;
+  height: 50px;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  max-height: 300px;
+}
+.pop-over .pop-over-content .pop-over-list li > a {
+  cursor: pointer;
+  display: flex;
   font-weight: 700;
   padding: 6px 10px;
   position: relative;
@@ -528,4 +629,64 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
 .pop-over .pop-over-content .pop-over-list li > a:hover {
   background-color: #298fca;
   color: #fff;
+}
+#window-overlay {
+  align-items: flex-start;
+  background-color: rgba(0,0,0,0.6);
+  display: none;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+}
+#window-overlay.is-up {
+  display: flex;
+}
+#window-overlay .window {
+  background-color: #edeff0;
+  border-radius: 3px;
+  margin: 3pc 0 5pc;
+  position: relative;
+  width: 730px;
+  z-index: 25;
+  overflow: hidden;
+}
+#window-overlay .window .window-wrapper .dialog-close-button {
+  color: rgba(0,0,0,0.3);
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 30px;
+  overflow: hidden;
+  padding: 4px;
+  width: 30px;
+  z-index: 2;
+  -webkit-transition: background-color 350ms, color 150ms;
+  transition: background-color 350ms, color 150ms;
+}
+#window-overlay .window .window-wrapper .card-detail-window {
+  min-height: 600px;
+}
+#window-overlay .window .window-wrapper .card-detail-window .window-header {
+  margin: 4px 40px 4px 38px;
+  padding: 9pt 9pt 0;
+  position: relative;
+  z-index: 1;
+}
+#window-overlay .window .window-wrapper .card-detail-window .window-header .window-header-icon {
+  left: -28px;
+  position: absolute;
+  top: 8px;
+}
+.u-clearfix:after {
+  display: table;
+}
+.u-clearfix:after,
+.u-clearfix pre:after {
+  content: "";
+  clear: both;
 }

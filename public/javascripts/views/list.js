@@ -7,15 +7,18 @@ var ListView = Backbone.View.extend({
     "click .cancel-edit": "closeCardComposer",
     "submit .list": "addCard",
     "blur .list-title": "updateListTitle",
-    "click .list-hamburger": "openPopOver",
-    "click .pop-close-btn": "closePopOver"
+    "click .list-hamburger": "updatePopOver"
   },
   openCardComposer: function(e) {
     e.preventDefault();
 
-    var $e = $(e.currentTarget);
-    $e.addClass('hide');
-    $e.prev().removeClass('hide');
+    this.renderCardComposer(this.model.get('id'));
+  },
+  renderCardComposer: function(listID) {
+    var $cardComposer = $('.list[data-id=' + listID + ']').find('.open-card-composer');
+
+    $cardComposer.addClass('hide');
+    $cardComposer.prev().removeClass('hide');
   },
   closeCardComposer: function(e) {
     e.preventDefault();
@@ -26,7 +29,7 @@ var ListView = Backbone.View.extend({
       .next()
       .removeClass('hide');
   },
-  openPopOver: function(e) {
+  updatePopOver: function(e) {
     e.preventDefault();
 
     var $e = $(e.currentTarget);
@@ -67,18 +70,13 @@ var ListView = Backbone.View.extend({
   updateListTitle: function(e) {
     var $e = $(e.currentTarget);
     var listName = $e.val();
-    var id = $e.closest('.list').data('id');
-    var self = this;
+    this.model.set('title', listName);
 
     $.ajax({
       url: '/lists',
       type: 'put',
       data: {
-        listName: listName,
-        id: id
-      },
-      success: function(card) {
-        self.model.set('title', listName);
+        list: JSON.stringify(this.model.toJSON())
       }
     });
   },
@@ -87,6 +85,8 @@ var ListView = Backbone.View.extend({
     var modelView;
     this.$el.html(this.template(this.model.toJSON()));
 
+    this.delegateEvents();
+    
     this.collection.each(function(model) {
       modelView = new CardView({ model: model });
       self.$('#cards').append(modelView.el);
@@ -97,5 +97,6 @@ var ListView = Backbone.View.extend({
     this.render();
     this.listenTo(this.collection, 'add change', this.render.bind(this));
     this.listenTo(this.model, 'change', this.render.bind(this));
+    this.listenTo(this.model, 'addCard', this.renderCardComposer.bind(this));
   }
 });

@@ -16,6 +16,7 @@ var QuickEditView = Backbone.View.extend({
       left: left,
       top: top
     }));
+    this.delegateEvents();
   },
   removeEditor: function(e) {
     e.preventDefault();
@@ -30,18 +31,15 @@ var QuickEditView = Backbone.View.extend({
     var id = $e.data('id');
     var cardName = this.$('textarea').val();
     var listID = this.model.get('listID');
-    var self = this;
+    this.model.set('title', cardName);
 
     $.ajax({
       url: $f.attr('action'),
       type: $f.attr('method'),
       data: {
-        id: id,
-        listID: listID,
-        cardName: cardName
+        card: JSON.stringify(this.model.toJSON())
       },
       success: function() {
-        self.model.set('title', cardName);
         App.trigger('removeCardEditor');
       }
     });

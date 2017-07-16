@@ -1,0 +1,19 @@
+<div class="pop-over-header">
+  <span class="pop-header-title">Move List</span>
+  <a class="pop-close-btn" href="#"></a>
+</div>
+<div class="pop-over-content">
+  <form class="move-list-form" action="/lists/move" method="post">
+    <div class="form-grid">
+      <div class="button-link setting form-grid-child form-grid-child-full">
+        <span class="label">Position</span>
+        <span class="value js-pos-value"></span>
+        <label>Position</label>
+        <select class="js-select-list-pos">
+          {{#selected lists list}}{{/selected}}
+        </select>
+      </div>
+    </div>
+    <input class="primary wide js-commit-position" type="submit" value="Move">
+  </form>
+</div>

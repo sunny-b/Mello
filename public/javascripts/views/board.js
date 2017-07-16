@@ -14,6 +14,8 @@ var BoardView = Backbone.View.extend({
       title: this.title
     }));
 
+    this.delegateEvents();
+
     this.collection.each(function(model) {
       modelView = new ListView({
         model: model,
@@ -59,6 +61,6 @@ var BoardView = Backbone.View.extend({
   initialize: function(options) {
     this.title = options.title;
     this.render();
-    this.listenTo(this.collection, 'add', this.render.bind(this));
+    this.listenTo(this.collection, 'add remove reset', this.render.bind(this));
   }
 });

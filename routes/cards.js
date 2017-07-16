@@ -16,16 +16,16 @@ module.exports = function(router) {
     };
     
     list.cards.push(card);
-    Data.setLists(lists, false);
+    Data.set(lists, false);
     res.json(card);
   }).put(function(req, res) {
     var lists = Data.getLists();
-    var currentCards = _(lists).findWhere({ id: +req.body.listID }).cards;
-    var currentCard = _(currentCards).findWhere({ id: +req.body.id });
+    var card = JSON.parse(req.body.card);
+    var cards = _(lists).findWhere({ id: card.listID }).cards;
+    var currentCard = _(cards).findWhere({ id: card.id });
     
-    console.log(currentCard, req.body);
-    currentCard.title = req.body.cardName;
-    Data.setLists(lists, false);
+    _.extend(currentCard, card);
+    Data.set(lists, false);
     res.status(200).end();
   });
 };

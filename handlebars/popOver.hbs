@@ -14,7 +14,15 @@
       <a class="js-move-list" href="#">Move List…</a>
     </li>
     <li>
-      <a class="highlight-icon js-list-subscribe" href="#">Subscribe</a>
+      <a class="highlight-icon js-list-subscribe" href="#">
+        Subscribe
+        {{#if subscribed}}
+        <span class="icon-sm icon-check"></span>
+        {{/if}}
+      </a>
+    </li>
+    <li>
+      <a class="highlight-icon js-archive" href="#">Archive</a>
     </li>
   </ul>
 </div>

@@ -1,0 +1,143 @@
+<div class="window-wrapper js-tab-parent">
+  <a class="icon-lg icon-close dialog-close-button js-close-window" href="#"></a>
+  
+  <div class="card-detail-window u-clearfix">
+    
+    <div class="window-header">
+      <span class="window-header-icon icon-lg icon-card"></span>
+      <div class="window-title">
+        <h2 class="card-detail-title-assist js-title-helper" dir="auto">{{title}}</h2>
+        <textarea class="mod-card-back-title js-card-detail-title-input" dir="auto" style="overflow: hidden; word-wrap: break-word; height: 30px;"></textarea>
+      </div>
+      <div class="window-header-inline-content quiet js-current-list">
+        <p class="u-inline-block u-bottom">in list <a class="js-open-move-from-header" href="#">{{listName}}</a></p>
+      </div>
+      <div class="window-header-inline-content hide js-subscribed-indicator-header">
+        <span class="icon-sm icon-subscribe"></span>
+      </div>
+    </div>
+
+    <div class="window-main-col">
+      <div class="card-detail-item card-detail-item-labels u-clearfix hide js-card-detail-labels">
+        <h3 class="card-detail-item-header">Labels</h3>
+        <div class="u-clearfix js-card-detail-labels-list js-edit-label">
+          <a class="card-detail-item-add-button dark-hover js-details-edit-labels">
+            <span class="icon-sm icon-add"></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="card-detail-item card-detail-item-block u-clearfix editable">
+        <div class="card-detail-edit edit">
+          <textarea class="field" placeholder="Add a more detailed description…" style="overflow: hidden; word-wrap: break-word; resize: none; height: 108px;"></textarea>
+          <div class="edit-controls u-clearfix">
+            <input class="primary confirm mod-submit-edit js-save-edit" type="submit" value="Save">
+            <a class="icon-lg icon-close dark-hover cancel js-cancel-edit" href="#"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="window-module add-comment-section">
+        <div class="window-module-title window-module-title-no-divider">
+          <span class="window-module-title-icon icon-lg icon-comment"></span>
+          <h3>Add Comment</h3>
+          <span class="editing-members js-editing-members hide"></span>
+        </div>
+
+        <div class="new-comment js-new-comment">
+          <div class="member member-no-menu"></div>
+          <form class="card-comment-form">
+            <div class="comment-frame">
+              <div class="comment-box">
+                <textarea class="comment-box-input js-new-comment-input" placeholder="Write a comment…" tabindex="1" dir="auto" style="overflow: hidden; word-wrap: break-word; height: 75px;"></textarea>
+              </div>
+            </div>
+
+            <div class="comment-controls u-clearfix">
+              <input class="primary confirm mod-no-top-bottom-margin js-add-comment" tabindex="3" type="submit" value="Save" disabled="">
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="window-module">
+        <div class="window-module-title window-module-title-no-divider">
+          <span class="window-module-title-icon icon-lg icon-activity"></span>
+          <h3>Activity</h3>
+          <div class="window-module-title-options">
+            <a class="quiet js-show-details" href="#">Show Details</a>
+            <a class="quiet hide js-hide-details" href="#">Hide Details</a>
+          </div>
+        </div>
+
+        <div class="js-list-actions">
+          
+          <div class="phenom mod-comment-type">
+            
+            <div class="phenom-creator">
+              <div class="member js-show-mem-menu" idmember="5960fe60783922c510c83ede">
+                <span class="member-gold-badge" title="This member has Trello Gold."></span>
+              </div>
+            </div>
+
+            <div class="phenom-desc">
+              <span class="inline-member js-show-mem-menu" idmember="5960fe60783922c510c83ede">
+                <span class="u-font-weight-bold">Sunny</span>
+              </span>
+              <div class="comment-container">
+                <div class="action-comment markeddown js-comment" dir="auto">
+                  <div class="current-comment js-friendly-links js-open-card">
+                    <p>hi</p>
+                  </div>
+
+                  <div class="comment-box">
+                    <textarea class="comment-box-input js-text" tabindex="1" placeholder="" style="overflow: hidden; word-wrap: break-word; height: 75px;">hi</textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="phenom-meta quiet">
+              <span class="js-hide-on-sending">
+                <a class="js-edit-action" href="#">Edit</a> - <a class="js-confirm-delete-action" href="#">Delete</a>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="window-sidebar">
+      <div class="window-module u-clearfix">
+        <h3>Add</h3>
+        <div class="u-clearfix">
+          <a class="button-link js-add-due-date" href="#"><span class="icon-sm icon-clock"></span>&nbsp;Due Date</a>
+        </div>
+      </div
+
+      <div class="window-module other-actions u-clearfix">
+        <h3>Actions</h3>
+        <div class="u-clearfix">
+          <a class="button-link js-move-card" href="#">
+            <span class="icon-sm icon-move"></span>&nbsp;Move
+          </a>
+          <a class="button-link js-copy-card" href="#">
+            <span class="icon-sm icon-card"></span>&nbsp;Copy
+          </a>
+          <div class="js-subscribe-sidebar-button">
+            <a class="button-link js-subscribe" title="Subscribe to the card to get notifications when something changes.">
+              <span class="icon-sm icon-subscribe"></span>&nbsp;Subscribe
+              <span class="on">
+                <span class="icon-sm icon-check light"></span>
+              </span>
+            </a>
+          </div>
+          <a class="button-link js-archive-card" href="#">
+            <span class="icon-sm icon-archive"></span>&nbsp;Archive
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

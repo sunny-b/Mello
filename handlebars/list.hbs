@@ -3,9 +3,16 @@
     <textarea class="list-title" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">
       {{title}}
     </textarea>
-    <a class="list-hamburger" href="#">
-      <span class="list-icon">...</span>
-    </a>
+    <div class="list-extras">
+      {{#if subscribed}}
+      <span class="list-header-extras-subscribe js-list-subscribed">
+        <span class="icon-subscribe"></span>
+      </span>
+      {{/if}}
+      <a class="list-hamburger" href="#">
+        <span class="list-icon">...</span>
+      </a>
+    </div>
   </div>
   <div class="list-cards">
     <ul id="cards">

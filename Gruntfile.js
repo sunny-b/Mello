@@ -19,7 +19,7 @@ module.exports = function(grunt) {
     handlebars: {
       all: {
         files: {
-          "public/javascripts/handlebars_templates.js": ["handlebars/**/*.hbs"]
+          "public/javascripts/handlebarsTemplates.js": ["handlebars/**/*.hbs"]
         },
         options: {
           processContent: removeWhitespace,

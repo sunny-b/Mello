@@ -19,20 +19,23 @@ var App = {
   updatePopOver: function(model, top, left) {
     var $popUp = $('.pop-over');
 
-    if ($popUp.hasClass('is-shown')) {
-      this.closePopOver();
-    } else {
-      this.popOver = new PopOverView({ model: model });
+    if (!this.popOver || this.popOver.model !== model) {
+      $popUp.removeClass('is-shown');
+
+      this.popOver = new PopOverView({ model: model, collection: this.lists });
       $popUp.html(this.popOver.el)
-                 .css({ top: top + 'px', left: left + 'px' })
-                 .addClass('is-shown');
+            .css({ top: top + 'px', left: left + 'px' })
+            .addClass('is-shown');
+    } else {
+      $popUp.toggleClass('is-shown');
     }
   },
   closePopOver: function() {
     var $popUp = $('.pop-over');
 
-    this.popOver.remove();
     $popUp.removeClass('is-shown');
+    this.popOver.remove();
+    this.popOver = null;
   },
   binds: function() {
     _.extend(this, Backbone.Events);
@@ -41,6 +44,7 @@ var App = {
     this.on('renderPage', this.renderPage.bind(this));
     this.on('updatePopOver', this.updatePopOver.bind(this));
     this.on('closePopOver', this.closePopOver.bind(this));
+    this.on('renderCardModal', this.closePopOver.bind(this));
   },
   init: function() {
     this.binds();
