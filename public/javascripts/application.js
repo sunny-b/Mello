@@ -24,6 +24,9 @@ var App = {
     this.$popUp.html(this.popOver.el);
     this.showPopOver($offset.top + searchHeight, $offset.left + searchWidth);
 
+    this.populateSearch(cards);
+  },
+  populateSearch: function(cards) {
     if (cards.length > 0) {
       cards.each(function(card) {
         var $card = new CardView({ model: card });
@@ -69,24 +72,33 @@ var App = {
   },
   updatePopOver: function(model, top, left, action) {
     var list;
+    var halfElementWidth = 135;
 
-    if (!this.popOver || this.popOver.model !== model) {
+    if (this.isNotCurrentPopOver(model)) {
       if (action) {
         list = this.lists.get(model.get('listID'));
-
-        this.popOver = new CardPopOverView({ lists: this.lists,
-                                             card: model,
-                                             list: list,
-                                             action: action });
+        this.popOver = this.renderCardPopOver(model, list, action);
       } else {
-        this.popOver = new ListPopOverView({ model: model, collection: this.lists });
+        this.popOver = this.renderListPopOver(model);        
       }
 
       this.$popUp.html(this.popOver.el);
-      this.showPopOver(top, left - 135);
+      this.showPopOver(top, left - halfElementWidth);
     } else {
       this.$popUp.toggleClass('is-shown');
     }
+  },
+  renderCardPopOver: function(model, list, action) {
+    return new CardPopOverView({ lists: this.lists,
+                                 card: model,
+                                 list: list,
+                                 action: action });
+  },
+  renderListPopOver: function(model) {
+    return new ListPopOverView({ model: model, collection: this.lists });
+  },
+  isNotCurrentPopOver: function(model) {
+    return !this.popOver || this.popOver.model !== model
   },
   showPopOver: function(top, left) {
     this.$popUp.removeClass('is-shown')

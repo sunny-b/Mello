@@ -27,7 +27,6 @@ var CardPopOverView = Backbone.View.extend({
 
     var color = $(e.currentTarget).data('color');
     this.card.toggleLabel(color);
-    this.card.trigger('cardUpdated');
   },
   convertMonth: function(monthNum) {
     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -37,8 +36,7 @@ var CardPopOverView = Backbone.View.extend({
   removeDueDate: function(e) {
     e.preventDefault();
 
-    this.card.set('dueDate', null);
-    this.syncPut();
+    this.card.removeDueDate();
     App.trigger('closePopOver');
   },
   updateDueDate: function(dateObj) {
@@ -58,7 +56,7 @@ var CardPopOverView = Backbone.View.extend({
     var newListID = this.parseSelectedValue($f.find('.js-select-list'));
     var newPosition = this.parseSelectedValue($f.find('.js-select-position'));
     var newCard = this.card.clone();
-    debugger;
+
     if (newName === '') return false;
 
     App.trigger('copyCard', newName, newListID, newPosition, newCard)

@@ -39,36 +39,4 @@ module.exports = function(router) {
     Board.save(board);
     res.status(200).end();
   });
-
-  router.post('/lists/:action', function(req, res) {
-    var lists = Board.getLists();
-    var newID = Board.getLastListID() + 1;
-    var list = JSON.parse(req.body.list);
-    var oldIndex = _.findIndex(lists, { id: list.id });
-
-    function copyList(req, res) {
-      var copiedList = JSON.parse(req.body.copiedList);
-
-      copiedList.title = req.body.newName;
-      copiedList.id = newID;
-      
-      lists.splice(oldIndex + 1, 0, copiedList);
-      Board.set(lists, true);
-    }
-
-    function moveList(req, res) {
-      var newIndex = req.body.newIndex;
-      lists.splice(oldIndex, 1);
-      lists.splice(newIndex, 0, list);
-      Board.set(lists);
-    }
-
-    if (req.params.action === 'copy') {
-      copyList(req, res);
-    } else if (req.params.action === 'move') {
-      moveList(req, res);
-    }
-
-    res.json(lists);
-  });
 };

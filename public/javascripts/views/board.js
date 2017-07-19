@@ -7,15 +7,15 @@ var BoardView = Backbone.View.extend({
     "submit .add-list form": "addList"
   },
   render: function() {
-    var self = this;
-    var modelView;
-
     this.$el.html(this.template(this.model.toJSON()));
     this.renderLists();
     this.sortable();
     this.delegateEvents();
   },
   renderLists: function() {
+    var self = this;
+    var modelView;
+
     this.model.lists.each(function(model) {
       modelView = new ListView({
         model: model,
@@ -37,13 +37,16 @@ var BoardView = Backbone.View.extend({
       update: function(event, ui) {
         var index = ui.item.index();
         var listID = ui.item.find('.list').data('id');
+
         App.trigger('updateListPosition', index, listID);
       }
     });
   },
   openAddList: function(e) {
     e.preventDefault();
+
     var $e = $(e.currentTarget);
+    
     $e.removeClass('idle').find('.list-name-input').focus();
   },
   closeAddList: function(e) {

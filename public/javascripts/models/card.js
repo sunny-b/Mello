@@ -23,6 +23,10 @@ var CardModel = Backbone.Model.extend({
     this.sync("update", this);
     this.trigger('cardUpdated');     
   },
+  removeDueDate: function() {
+    this.set('dueDate', null);
+    this.syncUp();
+  },
   updateDueDate: function(date) {
     this.set('dueDate', date);
     this.syncUp();

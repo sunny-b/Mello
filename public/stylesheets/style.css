@@ -526,7 +526,7 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 10;
+  z-index: 80;
 }
 .quick-card-editor .close-icon {
   color: rgba(255,255,255,0.6);

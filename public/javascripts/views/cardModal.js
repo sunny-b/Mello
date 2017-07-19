@@ -41,6 +41,9 @@ var CardModalView = Backbone.View.extend({
 
     var $f = $(e.currentTarget);
     var text = $f.find('.comment-box-input').val().trim();
+
+    if (text === '') return false;
+
     this.model.addComment(text);
   },
   deleteComment: function(e) {

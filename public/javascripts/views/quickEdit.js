@@ -10,12 +10,11 @@ var QuickEditView = Backbone.View.extend({
     var offset =  $('.card[data-id=' + id + ']').offset();
     var top = offset.top;
     var left = offset.left;
-    var elementHeight = 40;
 
     this.$el.html(this.template({
       title: this.model.get('title'),
       left: left,
-      top: top - elementHeight
+      top: top
     }));
     this.delegateEvents();
   },

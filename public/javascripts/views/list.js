@@ -13,6 +13,7 @@ var ListView = Backbone.View.extend({
   },
   editTitle: function(e) {
     var $e = $(e.currentTarget);
+    
     $e.addClass('is-hidden');
     $e.next().focus();
   },
@@ -31,6 +32,7 @@ var ListView = Backbone.View.extend({
     e.preventDefault();
 
     var $e = $(e.currentTarget);
+    
     $e.closest('.card-composer')
       .addClass('hide')
       .next()
