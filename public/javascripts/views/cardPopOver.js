@@ -22,22 +22,12 @@ var CardPopOverView = Backbone.View.extend({
 
     App.trigger('closePopOver');
   },
-  syncPut: function() {
-    $.ajax({
-      url: '/cards',
-      type: 'put',
-      data: {
-        card: JSON.stringify(this.card.toJSON())
-      }
-    });
-  },
   toggleLabel: function(e) {
     e.preventDefault();
 
     var color = $(e.currentTarget).data('color');
     this.card.toggleLabel(color);
-
-    this.syncPut();
+    this.card.trigger('cardUpdated');
   },
   convertMonth: function(monthNum) {
     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -57,78 +47,35 @@ var CardPopOverView = Backbone.View.extend({
     var dateYear = dateObj.selectedYear;
     var dateString = dateMonth + ' ' + dateDay + ', ' + dateYear;
 
-    this.card.set('dueDate', dateString);
-    this.syncPut();
+    this.card.updateDueDate(dateString);
     App.trigger('closePopOver');
   },
   copyCard: function(e) {
     e.preventDefault();
 
     var $f = $(e.currentTarget);
-    var newName = $f.find('.copy-card-text').text().trim();
-    var listID = this.parseSelectedValue($f.find('.js-select-list'));
-    var cardIndex = this.parseSelectedValue($f.find('.js-select-position')) - 1;
-    var copiedCard = $.extend(true, {}, this.card.toJSON());
-    var self = this;
+    var newName = $f.find('.copy-card-text').val().trim();
+    var newListID = this.parseSelectedValue($f.find('.js-select-list'));
+    var newPosition = this.parseSelectedValue($f.find('.js-select-position'));
+    var newCard = this.card.clone();
+    debugger;
+    if (newName === '') return false;
 
-    $.ajax({
-      url: $f.attr('action'),
-      type: $f.attr('method'),
-      data: {
-        newCardIndex: cardIndex,
-        listID: listID,
-        newName: newName,
-        card: JSON.stringify(copiedCard)
-      },
-      success: function(lists) {
-        self.lists.reset(lists);
-        App.trigger('closePopOver');
-      }
-    });
+    App.trigger('copyCard', newName, newListID, newPosition, newCard)
   },
   deleteCard: function(e) {
     e.preventDefault();
 
-    var $f = $(e.currentTarget);
-    var cardID = this.card.get('id');
-    var listID = this.card.get('listID');
-    var self = this;
-
-    $.ajax({
-      url: $f.attr('action'),
-      type: $f.attr('method'),
-      data: {
-        cardID: cardID,
-        listID: listID
-      },
-      success: function(lists) {
-        self.lists.reset(lists);
-        App.trigger('closeCardModal');
-        App.trigger('closePopOver');
-      }
-    });
+    this.card.destroy();
   },
   moveCard: function(e) {
     e.preventDefault();
 
     var $f = $(e.currentTarget);
-    var listID = this.parseSelectedValue($f.find('.js-select-list'));
-    var cardIndex = this.parseSelectedValue($f.find('.js-select-position')) - 1;
-    var self = this;
+    var newList = this.parseSelectedValue($f.find('.js-select-list'));
+    var newPosition = this.parseSelectedValue($f.find('.js-select-position'));
 
-    $.ajax({
-      url: $f.attr('action'),
-      type: $f.attr('method'),
-      data: {
-        newCardIndex: cardIndex,
-        listID: listID,
-        card: JSON.stringify(this.card.toJSON())
-      },
-      success: function(lists) {
-        self.lists.reset(lists);
-        App.trigger('closePopOver');
-      }
-    });
+    App.trigger('moveCard', newList, newPosition, this.card)
   },
   parseSelectedList: function($e) {
     return $e.find('option:checked').text().replace(/ \(current\)/, '');
@@ -174,12 +121,12 @@ var CardPopOverView = Backbone.View.extend({
     });
   },
   render: function() {
-    this.cards = this.list.get('cards');
+    this.cards = this.list.cards;
 
     this.$el.html(this.templates[this.action]({
       lists: this.lists.toJSON(),
       list: this.list.toJSON(),
-      cards: this.cards,
+      cards: this.cards.toJSON(),
       card: this.card.toJSON()
     }));
 
@@ -199,5 +146,8 @@ var CardPopOverView = Backbone.View.extend({
     this.list = options.list;
     this.card = options.card;
     this.render();
+
+    this.listenTo(this.lists, 'update', App.closePopOver.bind(App));
+    this.listenTo(this.cards, 'destroy remove', App.closeCardModal.bind(App));
   }
 });

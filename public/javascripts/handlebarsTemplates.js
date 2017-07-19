@@ -5,7 +5,7 @@ this["JST"]["board"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":fun
 
   return "<div id=\"board-wrapper\"><div class=\"board-header\"><a href=\"#\" class=\"board-title-container\"><span class=\"board-title\">"
     + container.escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"title","hash":{},"data":data}) : helper)))
-    + "</span></a><span class=\"private\">Private</span></div><div id=\"board\"><div class=\"board-canvas\"><ul id=\"lists\"></ul><div class=\"add-list idle\"><form id=\"listForm\" method=\"post\" action=\"/lists\"><span class=\"placeholder open-add-list\">Add a list…</span><input class=\"list-name-input\" type=\"text\" name=\"title\" placeholder=\"Add a list…\" autocomplete=\"off\" dir=\"auto\" maxlength=\"512\"><div class=\"list-add-controls\"><input class=\"primary save-edit\" type=\"submit\" value=\"Save\"><a class=\"cancel-edit icon-lg\" href=\"#\"></a></div></form></div><div class=\"extra-space\"></div></div></div></div>";
+    + "</span></a><span class=\"private\">Private</span></div><div id=\"board\"><div class=\"board-canvas\"><ul id=\"lists\"></ul><div class=\"add-list idle\"><form id=\"listForm\" method=\"post\" action=\"/board/lists\"><span class=\"placeholder open-add-list\">Add a list…</span><input class=\"list-name-input\" type=\"text\" name=\"title\" placeholder=\"Add a list…\" autocomplete=\"off\" dir=\"auto\" maxlength=\"512\"><div class=\"list-add-controls\"><input class=\"primary save-edit\" type=\"submit\" value=\"Save\"><a class=\"cancel-edit icon-lg\" href=\"#\"></a></div></form></div><div class=\"extra-space\"></div></div></div></div>";
 },"useData":true});
 
 this["JST"]["card"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -21,6 +21,8 @@ this["JST"]["card"] = Handlebars.template({"1":function(container,depth0,helpers
     + container.escapeExpression(((helper = (helper = helpers.dueDate || (depth0 != null ? depth0.dueDate : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"dueDate","hash":{},"data":data}) : helper)))
     + "</span></div>";
 },"7":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"badge is-icon-only\" title=\"This card has a description.\"><span class=\"badge-icon icon-sm icon-description\"></span></div>";
+},"9":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return "<div class=\"badge\" title=\"Comments\"><span class=\"badge-icon icon-sm icon-comment\"></span><span class=\"badge-text\">"
@@ -38,7 +40,8 @@ this["JST"]["card"] = Handlebars.template({"1":function(container,depth0,helpers
     + "</span><div class=\"badges\"><span class=\"js-badges\">"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.subscribed : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.dueDate : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.comments : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.description : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.comments : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "</span></div></div></div>";
 },"useData":true});
 
@@ -137,7 +140,9 @@ this["JST"]["list"] = Handlebars.template({"1":function(container,depth0,helpers
     + alias4(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper)))
     + "</textarea><div class=\"list-extras\">"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.subscribed : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "<a class=\"list-hamburger\" href=\"#\"><span class=\"list-icon\">...</span></a></div></div><div class=\"list-cards\"><ul class=\"cards\"></ul></div><div class=\"card-composer hide\"><form class=\"cardForm\" method=\"post\" action=\"/cards\"><div class=\"list-card composer\"><textarea name=\"title\" class=\"list-card-composer-textarea new-card-title\" dir=\"auto\" style=\"overflow: hidden; word-wrap: break-word; resize: none;\"></textarea></div><div class=\"card-add-controls\"><input class=\"primary save-edit\" type=\"submit\" value=\"Add\"><a class=\"cancel-edit icon-lg\" href=\"#\"></a></div></form></div><a href=\"#\" class=\"open-card-composer\">Add a card...</a></div>";
+    + "<a class=\"list-hamburger\" href=\"#\"><span class=\"list-icon\">...</span></a></div></div><div class=\"list-cards\"><ul class=\"cards\"></ul></div><div class=\"card-composer hide\"><form class=\"cardForm\" method=\"post\" action=\"/board/"
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "/cards\"><div class=\"list-card composer\"><textarea name=\"title\" class=\"list-card-composer-textarea new-card-title\" dir=\"auto\" style=\"overflow: hidden; word-wrap: break-word; resize: none;\"></textarea></div><div class=\"card-add-controls\"><input class=\"primary save-edit\" type=\"submit\" value=\"Add\"><a class=\"cancel-edit icon-lg\" href=\"#\"></a></div></form></div><a href=\"#\" class=\"open-card-composer\">Add a card...</a></div>";
 },"useData":true});
 
 this["JST"]["moveCard"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

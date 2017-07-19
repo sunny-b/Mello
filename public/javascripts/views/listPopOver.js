@@ -1,19 +1,15 @@
 var ListPopOverView = Backbone.View.extend({
   templates: {
     popOver: App.templates.popOver,
-    copyList: App.templates.copyList,
     moveList: App.templates.moveList
   },
   className: 'pop-container',
   events: {
     'click .pop-close-btn': 'close',
     'click .js-add-card': 'addCard',
-    'click .js-copy-list': 'renderCopyList',
     'click .js-archive': 'archiveList',
-    'click .js-list-subscribe': 'subscribe',
     'click .js-move-list': 'renderMoveList',
     'change .js-select-list-pos': 'changePosition',
-    'submit .pop-over-form': 'copyList',
     'submit .move-list-form': 'moveList'
   },
   close: function(e) {
@@ -32,73 +28,13 @@ var ListPopOverView = Backbone.View.extend({
     e.preventDefault();
 
     var $f = $(e.currentTarget);
-    var newIndex = +($f.find('option:checked').val()) - 1;
-    var self = this;
+    var newPosition = +$f.find('option:checked').val();
     
-    $.ajax({
-      url: $f.attr('action'),
-      type: $f.attr('method'),
-      data: {
-        newIndex: newIndex,
-        list: JSON.stringify(this.model.toJSON())
-      },
-      success: function(lists) {
-        self.collection.reset(lists);
-        App.trigger('closePopOver');
-      }
-    });
-  },
-  copyList: function(e) {
-    e.preventDefault();
-
-    var copiedList = $.extend(true, {}, this.model.toJSON());
-    var $f = $(e.currentTarget);
-    var self = this;
-
-    $.ajax({
-      url: $f.attr('action'),
-      type: $f.attr('method'),
-      data: {
-        newName: $f.find('.copy-list-textarea').val().trim(),
-        copiedList: JSON.stringify(copiedList),
-        list: JSON.stringify(this.model.toJSON())
-      },
-      success: function(lists) {
-        self.collection.reset(lists);
-        App.trigger('closePopOver');
-      }
-    });
+    App.trigger('moveList', newPosition, this.model);
   },
   archiveList: function(e) {
     e.preventDefault();
-
-    var listID = this.model.get('id');
-    this.collection.remove(listID);
-
-    $.ajax({
-      url: '/lists',
-      type: 'delete',
-      data: {
-        listID: listID
-      },
-      success: function() {
-        App.trigger('closePopOver');
-      }
-    });
-  },
-  subscribe: function(e) {
-    e.preventDefault();
-
-    var subscribeStatus = this.model.get('subscribed');
-    this.model.set('subscribed', !subscribeStatus);
-
-    $.ajax({
-      url: '/lists',
-      type: 'put',
-      data: {
-        list: JSON.stringify(this.model.toJSON())
-      }
-    });
+    this.model.destroy();
   },
   changePosition: function() {
     value = parseInt(this.$('option:checked').text());
@@ -106,7 +42,6 @@ var ListPopOverView = Backbone.View.extend({
   },
   renderMoveList: function(e) {
     e.preventDefault();
-    var value;
 
     this.$el.html(this.templates.moveList({
       list: this.model.toJSON(),
@@ -115,11 +50,6 @@ var ListPopOverView = Backbone.View.extend({
 
     this.delegateEvents();
     this.changePosition();
-  },
-  renderCopyList: function(e) {
-    e.preventDefault();
-
-    this.rerender(this.templates.copyList);
   },
   render: function() {
     this.rerender(this.templates.popOver);
@@ -131,5 +61,7 @@ var ListPopOverView = Backbone.View.extend({
   initialize: function() {
     this.render();
     this.listenTo(this.model, 'change', this.render.bind(this));
+    this.listenTo(this.model, 'destroy', App.closePopOver.bind(App));
+    this.listenTo(this.collection, 'update', App.closePopOver.bind(App));
   }
 });

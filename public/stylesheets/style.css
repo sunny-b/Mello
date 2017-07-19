@@ -473,13 +473,13 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
 .card:hover {
   background-color: #edeff0;
   border-bottom-color: #d6dadc;
+  background-position: -552px -87px;
 }
-.card-edit-icon {
+.card:hover .card-edit-icon {
   visibility: visible;
 }
-.card-edit-icon:hover {
+.card:hover .card-edit-icon:hover {
   background-color: #d6dadc;
-  background-position: -552px -87px;
 }
 .card-edit-icon {
   background: url("/images/sprite.png") -552px -105px;
@@ -1331,6 +1331,9 @@ input[type=submit]:disabled:hover {
 }
 .js-badges .icon-clock {
   background: url("/images/sprite.png") -197px -90px;
+}
+.js-badges .icon-description {
+  background: url("/images/sprite.png") -232px -91px;
 }
 .ui-datepicker {
   margin: 0 auto;

@@ -5,7 +5,7 @@ Handlebars.registerHelper("selectedPosition", function(context, list) {
   for (var i = 0; i < context.length; i++) {
     item = context[i];
     ret += '<option value="';
-    ret += item.id === list.id ? (i + 1) + '" selected>' : (i + 1) + '">';
+    ret += item.id === list.id ? i + '" selected>' : i + '">';
     ret += (i + 1);
     ret += item.id === list.id ? ' (current)' : '';
     ret += '</option>'
@@ -34,7 +34,7 @@ Handlebars.registerHelper("selectedPositionPlusOne", function(context) {
   var ret = '';
 
   for (var i = 0; i < context.length + 1; i++) {
-    ret += '<option value="' + (i + 1) + '">' + (i + 1) + '</option>';
+    ret += '<option value="' + i + '">' + (i + 1) + '</option>';
   }
 
   return ret;

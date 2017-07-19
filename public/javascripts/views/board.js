@@ -10,21 +10,19 @@ var BoardView = Backbone.View.extend({
     var self = this;
     var modelView;
 
-    this.$el.html(this.template({
-      title: this.title
-    }));
-
+    this.$el.html(this.template(this.model.toJSON()));
+    this.renderLists();
+    this.sortable();
     this.delegateEvents();
-
-    this.collection.each(function(model) {
+  },
+  renderLists: function() {
+    this.model.lists.each(function(model) {
       modelView = new ListView({
         model: model,
-        collection: new CardsCollection(model.get('cards'))
+        collection: model.cards
       });
       self.$('#lists').append(modelView.el);
     });
-
-    this.sortable();
   },
   sortable: function() {
     this.$('#lists').sortable({
@@ -56,7 +54,6 @@ var BoardView = Backbone.View.extend({
   },
   addList: function(e) {
     e.preventDefault();
-    e.stopPropagation();
 
     var $f = this.$('#listForm');
     var listName = $f.find('.list-name-input').val().trim();
@@ -78,8 +75,7 @@ var BoardView = Backbone.View.extend({
     });
   },
   initialize: function(options) {
-    this.title = options.title;
     this.render();
-    this.listenTo(this.collection, 'add remove reset', this.render.bind(this));
+    this.listenTo(this.collection, 'add remove reset update', this.render.bind(this));
   }
 });

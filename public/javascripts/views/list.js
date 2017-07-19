@@ -66,8 +66,7 @@ var ListView = Backbone.View.extend({
       url: $f.attr('action'),
       type: $f.attr('method'),
       data: {
-        title: cardName,
-        listID: listID
+        title: cardName
       },
       success: function(card) {
         self.collection.add(card);
@@ -76,17 +75,12 @@ var ListView = Backbone.View.extend({
   },
   updateListTitle: function(e) {
     var $e = $(e.currentTarget);
+    var listName = $e.val().trim();
+    console.log(listName);
+    if (listName === '') return false;
+    
     $e.prev().removeClass('is-hidden');
-    var listName = $e.val();
-    this.model.set('title', listName);
-
-    $.ajax({
-      url: '/lists',
-      type: 'put',
-      data: {
-        list: JSON.stringify(this.model.toJSON())
-      }
-    });
+    this.model.editTitle(listName);
   },
   sortable: function() {
     this.$('.cards').sortable({ 
@@ -94,16 +88,16 @@ var ListView = Backbone.View.extend({
       placeholder: "ui-sortable-placeholder",
       forcePlaceholderSize: true,
       start: function(event, ui) {
-        ui.item.startListID = $(this.closest('.list')).data('id');
-        ui.item.startPosition = ui.item.index();
+        ui.item.startListID = $(this).closest('.list').data('id');
+        ui.item.cardID = $(this).find('.card').data('id');
       },
       receive: function(event, ui) {
         var oldListID = +ui.item.startListID;
         var newListID = +$(event.target).closest('.list').data('id');
-        var oldPosition = +ui.item.startPosition;
+        var cardID = +ui.item.cardID;
         var newPosition = ui.item.index();
     
-        App.trigger('updateCardPosition', oldListID, newListID, oldPosition, newPosition);
+        App.trigger('updateCardPosition', oldListID, newListID, cardID, newPosition);
       },
     });
   },
@@ -111,7 +105,7 @@ var ListView = Backbone.View.extend({
     var self = this;
     var modelView;
     this.$el.html(this.template(this.model.toJSON()));
-    
+
     this.collection.each(function(model) {
       modelView = new CardView({ model: model });
       self.$('.cards').append(modelView.el);
@@ -122,7 +116,7 @@ var ListView = Backbone.View.extend({
   },
   initialize: function() {
     this.render();
-    this.listenTo(this.collection, 'add change', this.render.bind(this));
+    this.listenTo(this.collection, 'add change update', this.render.bind(this));
     this.listenTo(this.model, 'change', this.render.bind(this));
     this.listenTo(this.model, 'addCard', this.renderCardComposer.bind(this));
   }

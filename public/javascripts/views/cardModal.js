@@ -4,11 +4,11 @@ var CardModalView = Backbone.View.extend({
   events: {
     'click .dialog-close-button': 'close',
     'click .js-edit-desc, .cancel.cancel-edit': 'toggleDescEditor',
-    'submit .card-desc-form': 'addDescription',
-    'click .js-move-card, .js-open-move-from-header': 'moveCard',
-    'click .js-archive-card': 'deleteCard',
+    'submit .card-desc-form': 'editDescription',
+    'click .js-move-card, .js-open-move-from-header': 'moveCardPop',
+    'click .js-archive-card': 'deleteCardPop',
     'click .js-subscribe': 'subscribeToCard',
-    'click .js-copy-card': 'copyCard',
+    'click .js-copy-card': 'copyCardPop',
     'click .js-edit-labels': 'openLabels',
     'keyup .comment-box-input': 'updateCommentBox',
     'submit .card-comment-form': 'addComment',
@@ -28,20 +28,13 @@ var CardModalView = Backbone.View.extend({
   },
   updateCardName: function(e) {
     e.preventDefault();
-
     var newName = $(e.currentTarget).val().trim();
-
-    if (newName !== '') {
-      this.model.set('title', newName);
-
-      $.ajax({
-        url: '/cards',
-        type: 'put',
-        data: {
-          card: JSON.stringify(this.model.toJSON())
-        }
-      });
-    }
+    if (newName === '') return false;
+      
+    this.model.updateTitle(newName);
+  },
+  updateCard: function() {
+    this.model.syncUp();
   },
   addComment: function(e) {
     e.preventDefault();
@@ -49,14 +42,6 @@ var CardModalView = Backbone.View.extend({
     var $f = $(e.currentTarget);
     var text = $f.find('.comment-box-input').val().trim();
     this.model.addComment(text);
-
-    $.ajax({
-      url: $f.attr('action'),
-      type: $f.attr('method'),
-      data: {
-        card: JSON.stringify(this.model.toJSON())
-      }
-    });
   },
   deleteComment: function(e) {
     e.preventDefault();
@@ -65,14 +50,6 @@ var CardModalView = Backbone.View.extend({
     var index = $e.closest('.phenom').index();
 
     this.model.deleteComment(index);
-
-    $.ajax({
-      url: '/cards',
-      type: 'put',
-      data: {
-        card: JSON.stringify(this.model.toJSON())
-      }
-    });
   },
   updateCommentBox: function(e) {
     var $e = $(e.currentTarget);
@@ -102,43 +79,27 @@ var CardModalView = Backbone.View.extend({
 
     App.trigger('closeCardModal');
   },
-  copyCard: function(e) {
+  copyCardPop: function(e) {
     this.updatePopOver(e, 'copyCard');
   },
   subscribeToCard: function(e) {
     e.preventDefault();
 
-    var subscribeStatus = this.model.get('subscribed');
-    this.model.set('subscribed', !subscribeStatus);
-
-    $.ajax({
-      url: '/cards',
-      type: 'put',
-      data: {
-        card: JSON.stringify(this.model.toJSON())
-      }
-    });
+    this.model.toggleSubscribe();
   },
-  addDescription: function(e) {
+  editDescription: function(e) {
     e.preventDefault();
     e.stopPropagation();
-
+    
     var $f = $(e.currentTarget);
-    var description = $f.find('.field').val().trim();
-    this.model.set('description', description);
-
-    $.ajax({
-      url: $f.attr('action'),
-      type: $f.attr('method'),
-      data: {
-        card: JSON.stringify(this.model.toJSON())
-      }
-    });
+    var text = $f.find('.field').val().trim();
+    
+    this.model.editDescription(text);
   },
-  moveCard: function(e) {
+  moveCardPop: function(e) {
     this.updatePopOver(e, 'moveCard');
   },
-  deleteCard: function(e) {
+  deleteCardPop: function(e) {
     this.updatePopOver(e, 'deleteCard');
   },
   render: function() {
@@ -151,6 +112,6 @@ var CardModalView = Backbone.View.extend({
   initialize: function(options) {
     this.list = options.list;
     this.render();
-    this.listenTo(this.model, 'change cardUpdated', this.render.bind(this));
+    this.listenTo(this.model, 'change update sync cardUpdated', this.render.bind(this));
   }
 });

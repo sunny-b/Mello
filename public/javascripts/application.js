@@ -5,14 +5,16 @@ var App = {
   $windowOverlay: $('#window-overlay'),
   $popUp: $('.pop-over'),
   renderPage: function() {
-    this.headerView = new HeaderView();
+    this.headerView = new HeaderView({
+      collection: this.board.notifications
+    });
     this.boardView = new BoardView({
-      collection: this.lists,
-      title: 'Your Board'
+      model: this.board,
+      collection: this.lists
     });
   },
   renderSearch: function(query) {
-    var cards = new CardsCollection(this.searchCards(query));
+    var cards = this.searchCards(query);
     var $offset = $('.search').offset();
     var searchHeight = 30;
     var searchWidth = 180;
@@ -22,7 +24,7 @@ var App = {
     this.$popUp.html(this.popOver.el);
     this.showPopOver($offset.top + searchHeight, $offset.left + searchWidth);
 
-    if (cards.length > 1) {
+    if (cards.length > 0) {
       cards.each(function(card) {
         var $card = new CardView({ model: card });
         $('.search-cards').append($card.el);
@@ -32,28 +34,28 @@ var App = {
     };
   },
   searchCards: function(query) {
-    var results = []
+    var results = new CardsCollection();
     var regex = new RegExp(query, "i");
 
     this.lists.each(function(list) {
-      list.get('cards').forEach(function(card) {
-        var title = card.title;
-        var description = card.description;
-        debugger;
+      list.cards.each(function(card) {
+        var title = card.get('title');
+        var description = card.get('description');
+
         if (regex.test(title) || regex.test(description)) {
-          results.push(card);
+          results.add(card);
         }
       });
     });
 
     return results;
   },
-  renderCardModal: function(model, listID) {
+  renderCardModal: function(model) {
     this.closePopOver();
 
     this.cardModal = new CardModalView({
       model: model,
-      list: this.lists.findWhere({ id: listID })
+      list: this.lists.findWhere({ id: model.get('listID') })
     });
 
     this.$windowOverlay.html(this.cardModal.el).toggleClass('is-up');
@@ -81,7 +83,7 @@ var App = {
       }
 
       this.$popUp.html(this.popOver.el);
-      this.showPopOver(top, left);
+      this.showPopOver(top, left - 135);
     } else {
       this.$popUp.toggleClass('is-shown');
     }
@@ -102,40 +104,17 @@ var App = {
   closeCardModal: function() {
     this.closePopOver();
     this.cardModal.remove();
-    this.$windowOverlay.toggleClass('is-up');
+    this.$windowOverlay.removeClass('is-up');
   },
-  updateCardPosition: function(oldID, newID, oldPosition, newPosition) {
-    var card = this.lists.get(oldID).get('cards')[oldPosition];
-    var self = this;
+  updateCardPosition: function(oldID, newID, cardID, newPosition) {
+    var card = this.lists.get(oldID).cards.get(cardID);
 
-    $.ajax({
-      url: '/cards/move',
-      type: 'post',
-      data: {
-        newCardIndex: newPosition,
-        listID: newID,
-        card: JSON.stringify(card)
-      },
-      success: function(lists) {
-        self.lists.reset(lists);
-      }
-    });
+    this.lists.moveCard(newID, newPosition, card);
   },
   updateListPosition: function(newPosition, listID) {
     var list = this.lists.get(listID);
-    var self = this;
 
-    $.ajax({
-      url: 'lists/move',
-      type: 'post',
-      data: {
-        newIndex: newPosition,
-        list: JSON.stringify(list.toJSON())
-      },
-      success: function(lists) {
-        self.lists.reset(lists);
-      }
-    });
+    this.lists.moveList(newPosition, list);
   },
   openNotifications: function() {
     var $offset = $('.notifications').offset();
@@ -145,6 +124,21 @@ var App = {
     this.popOver = new NotificationsView();
     this.$popUp.html(this.popOver.el);
     this.showPopOver($offset.top, $offset.left - popOverWidth);
+  },
+  moveList: function(newPosition, model) {
+    this.lists.trigger('moveList', newPosition, model);
+  },
+  moveCard: function(newListID, newPosition, card) {
+    this.lists.moveCard(newListID, newPosition, card);
+    App.closeCardModal();
+  },
+  copyCard: function(newName, newListID, newPosition, card) {
+    var newID = this.board.nextCardID();
+    var list = this.board.listByID(newListID);
+    
+    list.copyCard(newName, newID, newPosition, card);
+    this.board.incrementCardID();
+    App.closeCardModal();
   },
   binds: function() {
     _.extend(this, Backbone.Events);
@@ -159,8 +153,12 @@ var App = {
     this.on('updateListPosition', this.updateListPosition.bind(this));
     this.on('renderSearch', this.renderSearch.bind(this));
     this.on('openNotifications', this.openNotifications.bind(this));
+    this.on('moveList', this.moveList.bind(this));
+    this.on('moveCard', this.moveCard.bind(this));
+    this.on('copyCard', this.copyCard.bind(this));
   },
   init: function() {
+    this.lists = this.board.lists;
     this.binds();
     this.renderPage();
   }

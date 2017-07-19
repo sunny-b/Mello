@@ -1,42 +1,48 @@
 var path = require('path');
-var Data = require(path.resolve(path.dirname(__dirname), 'modules/data'));
+var Board = require(path.resolve(path.dirname(__dirname), 'modules/board'));
 var _ = require('underscore');
 
 module.exports = function(router) {
-  router.route('/lists').post(function(req, res) {
-    var lists = Data.getLists();
-    var newID = Data.getLastListID() + 1;
-    var list;
+  router.route('/board/lists').post(function(req, res) {
+    var board = Board.get();
+    var newID = Board.lastListID() + 1;
+    var list = req.body;
 
-    list = req.body;
     list.cards = [];
     list.id = newID;
-    lists.push(list);
+    board.lists.push(list);
+    board.lastListID = newID;
 
-    Data.set(lists, true);
+    Board.save(board);
     res.json(list);
   }).put(function(req, res) {
-    var lists = Data.getLists();
-    var list = JSON.parse(req.body.list);
-    var currentList = _(lists).findWhere({ id: list.id });
+    var board = Board.get();
+    board.lists = req.body;
 
-    _.extend(currentList, list);
-    
-    Data.set(lists);
+    Board.save(board);
+    res.status(200).end();
+  });
+
+  router.route('/board/:id').put(function(req, res) {
+    var board = Board.get();
+    var oldList = _(board.lists).findWhere({ id: +req.params.id });
+
+    _.extend(oldList, req.body);
+    Board.save(board);
     res.status(200).end();
   }).delete(function(req, res) {
-    var lists = _(Data.getLists()).reject(function(list) {
-      return list.id === +req.body.listID;
+    var board = Board.get();
+    board.lists = _(board.lists).reject(function(list) {
+      return list.id === +req.params.id;
     });
 
-    Data.set(lists);
-
+    Board.save(board);
     res.status(200).end();
   });
 
   router.post('/lists/:action', function(req, res) {
-    var lists = Data.getLists();
-    var newID = Data.getLastListID() + 1;
+    var lists = Board.getLists();
+    var newID = Board.getLastListID() + 1;
     var list = JSON.parse(req.body.list);
     var oldIndex = _.findIndex(lists, { id: list.id });
 
@@ -47,14 +53,14 @@ module.exports = function(router) {
       copiedList.id = newID;
       
       lists.splice(oldIndex + 1, 0, copiedList);
-      Data.set(lists, true);
+      Board.set(lists, true);
     }
 
     function moveList(req, res) {
       var newIndex = req.body.newIndex;
       lists.splice(oldIndex, 1);
       lists.splice(newIndex, 0, list);
-      Data.set(lists);
+      Board.set(lists);
     }
 
     if (req.params.action === 'copy') {

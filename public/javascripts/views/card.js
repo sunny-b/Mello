@@ -13,9 +13,8 @@ var CardView = Backbone.View.extend({
   },
   renderCardModal: function(e) {
     e.preventDefault();
-    var listID = this.model.get('listID');
 
-    App.trigger('renderCardModal', this.model, listID);
+    App.trigger('renderCardModal', this.model);
   },
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));

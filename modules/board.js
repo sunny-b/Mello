@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
-var file_path = path.resolve(path.dirname(__dirname), 'data/all.json');
+var file_path = path.resolve(path.dirname(__dirname), 'data/board.json');
+var _ = require("underscore");
 
 module.exports = {
   __readFile: function() {
@@ -9,17 +10,25 @@ module.exports = {
   get: function() {
     return this.__readFile();
   },
-  getLists: function() {
+  lists: function() {
     return this.get().lists;
   },
-  getCards: function() {
-    return this.get().cards;
+  listByID: function(id) {
+    var lists = this.lists();
+
+    return _.where(lists, { id: id });
   },
-  getLastListID: function() {
+  lastListID: function() {
     return this.get().lastListID;
   },
-  getLastCardID: function() {
+  lastCardID: function() {
     return this.get().lastCardID;
+  },
+  nextCardID: function() {
+    return this.lastCardID() + 1;
+  },
+  nextListID: function() {
+    return this.lastListID() + 1;
   },
   incrementCardID: function() {
     var allData = this.get();
@@ -37,7 +46,7 @@ module.exports = {
     allData.lists = lists;
     this.save(allData);
   },
-  save: function(allData) {
-    fs.writeFileSync(file_path, JSON.stringify(allData), 'utf8');
+  save: function(board) {
+    fs.writeFileSync(file_path, JSON.stringify(board), 'utf8');
   }
 };

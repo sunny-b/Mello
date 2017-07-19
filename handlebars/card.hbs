@@ -22,6 +22,12 @@
         </div>
         {{/if}}
 
+        {{#if description}}
+          <div class="badge is-icon-only" title="This card has a description.">
+            <span class="badge-icon icon-sm icon-description"></span>
+          </div>
+        {{/if}}
+
         {{#if comments}}
         <div class="badge" title="Comments">
           <span class="badge-icon icon-sm icon-comment"></span>

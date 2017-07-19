@@ -10,11 +10,12 @@ var QuickEditView = Backbone.View.extend({
     var offset =  $('.card[data-id=' + id + ']').offset();
     var top = offset.top;
     var left = offset.left;
+    var elementHeight = 40;
 
     this.$el.html(this.template({
       title: this.model.get('title'),
       left: left,
-      top: top
+      top: top - elementHeight
     }));
     this.delegateEvents();
   },
@@ -27,25 +28,13 @@ var QuickEditView = Backbone.View.extend({
   updateCardName: function(e) {
     e.preventDefault();
     var $e = $(e.currentTarget);
-    var $f = this.$('.card-editor-form');
-    var id = $e.data('id');
     var cardName = this.$('textarea').val();
-    var listID = this.model.get('listID');
-    this.model.set('title', cardName);
+    if (cardName === '') return false;
 
-    $.ajax({
-      url: $f.attr('action'),
-      type: $f.attr('method'),
-      data: {
-        card: JSON.stringify(this.model.toJSON())
-      },
-      success: function() {
-        App.trigger('removeCardEditor');
-      }
-    });
+    this.model.updateTitle(cardName);
+    App.trigger('removeCardEditor');
   },
   initialize: function(options) {
     this.render();
-    this.$el.attr('data-id', options.model.get('id'));
   }
 });
