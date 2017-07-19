@@ -1,4 +1,4 @@
-var PopOverView = Backbone.View.extend({
+var ListPopOverView = Backbone.View.extend({
   templates: {
     popOver: App.templates.popOver,
     copyList: App.templates.copyList,
@@ -32,7 +32,7 @@ var PopOverView = Backbone.View.extend({
     e.preventDefault();
 
     var $f = $(e.currentTarget);
-    var newIndex = +(this.$('.value').text()) - 1;
+    var newIndex = +($f.find('option:checked').val()) - 1;
     var self = this;
     
     $.ajax({
@@ -44,6 +44,7 @@ var PopOverView = Backbone.View.extend({
       },
       success: function(lists) {
         self.collection.reset(lists);
+        App.trigger('closePopOver');
       }
     });
   },
@@ -64,6 +65,7 @@ var PopOverView = Backbone.View.extend({
       },
       success: function(lists) {
         self.collection.reset(lists);
+        App.trigger('closePopOver');
       }
     });
   },
@@ -78,6 +80,9 @@ var PopOverView = Backbone.View.extend({
       type: 'delete',
       data: {
         listID: listID
+      },
+      success: function() {
+        App.trigger('closePopOver');
       }
     });
   },

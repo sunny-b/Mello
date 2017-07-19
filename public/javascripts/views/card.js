@@ -7,6 +7,7 @@ var CardView = Backbone.View.extend({
   },
   openCardEditor: function(e) {
     e.preventDefault();
+    e.stopPropagation();
 
     App.trigger('openCardEditor', this.model);
   },
@@ -22,5 +23,6 @@ var CardView = Backbone.View.extend({
   },
   initialize: function() {
     this.render();
+    this.listenTo(this.model, 'change cardUpdated', this.render.bind(this));
   }
 });

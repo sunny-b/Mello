@@ -21,16 +21,23 @@ module.exports = {
   getLastCardID: function() {
     return this.get().lastCardID;
   },
+  incrementCardID: function() {
+    var allData = this.get();
+
+    allData.lastCardID = this.getLastCardID() + 1;
+    this.save(allData);
+  },
   set: function(lists, isNew) {
     var allData = this.get();
 
     if (isNew) {
       allData.lastListID = this.getLastListID() + 1;
-    } else {
-      allData.lastCardID = this.getLastCardID() + 1;
     }
 
     allData.lists = lists;
+    this.save(allData);
+  },
+  save: function(allData) {
     fs.writeFileSync(file_path, JSON.stringify(allData), 'utf8');
   }
 };

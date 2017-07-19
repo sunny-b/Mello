@@ -1,13 +1,20 @@
 var ListView = Backbone.View.extend({
   template: App.templates.list,
   tagName: 'li',
+  className: 'list-wrapper',
   $popUp: $('.pop-over'),
   events: {
     "click .open-card-composer": "openCardComposer",
     "click .cancel-edit": "closeCardComposer",
     "submit .list": "addCard",
+    "click .js-editing-target": 'editTitle',
     "blur .list-title": "updateListTitle",
     "click .list-hamburger": "updatePopOver"
+  },
+  editTitle: function(e) {
+    var $e = $(e.currentTarget);
+    $e.addClass('is-hidden');
+    $e.next().focus();
   },
   openCardComposer: function(e) {
     e.preventDefault();
@@ -33,9 +40,9 @@ var ListView = Backbone.View.extend({
     e.preventDefault();
 
     var $e = $(e.currentTarget);
-    var elementHeight = 10;
+    var elementHeight = 25;
     var offset = $e.offset();
-    var top = offset.top - elementHeight;
+    var top = offset.top + elementHeight;
     var left = offset.left;
 
     App.trigger('updatePopOver', this.model, top, left);
@@ -69,6 +76,7 @@ var ListView = Backbone.View.extend({
   },
   updateListTitle: function(e) {
     var $e = $(e.currentTarget);
+    $e.prev().removeClass('is-hidden');
     var listName = $e.val();
     this.model.set('title', listName);
 
@@ -80,18 +88,37 @@ var ListView = Backbone.View.extend({
       }
     });
   },
+  sortable: function() {
+    this.$('.cards').sortable({ 
+      connectWith: '.cards',
+      placeholder: "ui-sortable-placeholder",
+      forcePlaceholderSize: true,
+      start: function(event, ui) {
+        ui.item.startListID = $(this.closest('.list')).data('id');
+        ui.item.startPosition = ui.item.index();
+      },
+      receive: function(event, ui) {
+        var oldListID = +ui.item.startListID;
+        var newListID = +$(event.target).closest('.list').data('id');
+        var oldPosition = +ui.item.startPosition;
+        var newPosition = ui.item.index();
+    
+        App.trigger('updateCardPosition', oldListID, newListID, oldPosition, newPosition);
+      },
+    });
+  },
   render: function() {
     var self = this;
     var modelView;
     this.$el.html(this.template(this.model.toJSON()));
-
-    this.delegateEvents();
     
     this.collection.each(function(model) {
       modelView = new CardView({ model: model });
-      self.$('#cards').append(modelView.el);
+      self.$('.cards').append(modelView.el);
     });
+    
     this.delegateEvents();
+    this.sortable();
   },
   initialize: function() {
     this.render();

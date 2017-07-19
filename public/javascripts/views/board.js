@@ -23,6 +23,25 @@ var BoardView = Backbone.View.extend({
       });
       self.$('#lists').append(modelView.el);
     });
+
+    this.sortable();
+  },
+  sortable: function() {
+    this.$('#lists').sortable({
+      items: '.list-wrapper',
+      placeholder: "ui-sortable-placeholder-list",
+      forcePlaceholderSize: true,
+      tolerance: 'pointer',
+      axis: 'x',  
+      start: function(event, ui) {
+        ui.placeholder.height(ui.item.find('.list').height());
+      },              
+      update: function(event, ui) {
+        var index = ui.item.index();
+        var listID = ui.item.find('.list').data('id');
+        App.trigger('updateListPosition', index, listID);
+      }
+    });
   },
   openAddList: function(e) {
     e.preventDefault();

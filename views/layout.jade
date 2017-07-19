@@ -4,6 +4,7 @@ doctype html
 html
   head
     title= title
+    link(rel="stylesheet" type="text/css" media="all" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css")
     +stylesheet_link_tag('style')
     +javascript_script_tag('vendor/all')
     +javascript_script_tag('handlebarsTemplates')
@@ -13,7 +14,7 @@ html
     +javascript_script_tag('application')
     +javascript_script_tag('models/card', 'models/list')
     +javascript_script_tag('collections/lists', 'collections/cards')
-    +javascript_script_tag('views/header', 'views/board', 'views/list', 'views/card', 'views/quickEdit', 'views/popOver')
+    +javascript_script_tag('views/header', 'views/board', 'views/list', 'views/card', 'views/quickEdit', 'views/listPopOver', 'views/cardModal', 'views/cardPopOver', 'views/search', 'views/notifications')
     script(type="text/javascript").
       App.lists = new ListsCollection(!{JSON.stringify(lists)});
       App.init();

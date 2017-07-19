@@ -1,8 +1,35 @@
 <div class="card" data-id="{{id}}">
   <span class="card-edit-icon"></span>
   <div class="card-details">
-    <div class="card-labels"></div>
+    <div class="list-card-labels js-card-labels">
+      {{#each labels}}
+      <span class="card-label card-label-{{this.color}} mod-card-front" title="">&nbsp;</span>
+      {{/each}}
+    </div>
     <span class="card-title">{{title}}</span>
-    <div class="badges"></div>
+    <div class="badges">
+      <span class="js-badges">
+        {{#if subscribed}}
+        <div class="badge is-icon-only" title="You are subscribed to this card.">
+          <span class="badge-icon icon-sm icon-subscribe"></span>
+        </div>
+        {{/if}}
+
+        {{#if dueDate}}
+        <div class="badge is-due-future" title="This card is due later.">
+          <span class="badge-icon icon-sm icon-clock"></span>
+          <span class="badge-text">{{dueDate}}</span>
+        </div>
+        {{/if}}
+
+        {{#if comments}}
+        <div class="badge" title="Comments">
+          <span class="badge-icon icon-sm icon-comment"></span>
+          <span class="badge-text">{{comments.length}}</span></div></span>
+          <span class="js-plugin-badges"><span>
+        </span>
+        {{/if}}
+      </span>
+    </div>
   </div>
 </div>

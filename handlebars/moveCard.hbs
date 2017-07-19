@@ -1,0 +1,31 @@
+<div class="pop-over-header">
+  <span class="pop-header-title">Move Card</span>
+  <a class="pop-close-btn" href="#"></a>
+</div>
+<div class="pop-over-content">
+  <form class="move-card-form" method="post" action="/cards/move">
+    <div class="form-grid">
+      <div class="button-link setting form-grid-child form-grid-child-threequarters">
+        <span class="label">List</span>
+        <span class="value js-list-value"></span>
+        <label>List</label>
+        <select class="js-select-list">
+          {{#selectedLists lists list}}{{/selectedLists}}
+        </select>
+      </div>
+      <div class="button-link setting form-grid-child form-grid-child-quarter">
+        <span class="label">Position</span>
+        <span class="value js-pos-value"></span>
+        <label>Position</label>
+        <select class="js-select-position">
+          {{#ifCurrentList}}
+            {{#selectedPosition cards card}}{{/selectedPosition}}
+          {{else}}
+            {{#selectedPositionPlusOne cards}}{{/selectedPositionPlusOne}}
+          {{/ifCurrentList}}
+        </select>
+      </div>
+    </div>
+    <input class="primary wide js-commit-position" type="submit" value="Move">
+  </form>
+</div>
