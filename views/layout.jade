@@ -12,8 +12,8 @@ html
   body
     block content
     +javascript_script_tag('application')
-    +javascript_script_tag('models/card', 'models/list', 'models/board', 'models/comment')
-    +javascript_script_tag('collections/lists', 'collections/cards', 'collections/comments')
+    +javascript_script_tag('models/card', 'models/list', 'models/board', 'models/comment', 'models/notification')
+    +javascript_script_tag('collections/lists', 'collections/cards', 'collections/comments', 'collections/notifications')
     +javascript_script_tag('views/header', 'views/board', 'views/list', 'views/card', 'views/quickEdit', 'views/listPopOver', 'views/cardModal', 'views/cardPopOver', 'views/search', 'views/notifications', 'views/comment', 'views/notification')
     script(type="text/javascript").
       App.board = new BoardModel(!{JSON.stringify(board)});

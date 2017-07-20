@@ -146,7 +146,7 @@ var App = {
     var $offset = $('.notifications').offset();
     var popOverWidth = 312;
     var elementHeight = 30;
-    var notifications = new CommentsCollection(this.getNotifications());
+    var notifications = new NotificationsCollection(this.getNotifications());
 
     this.closePopOver();
     this.popOver = new NotificationsPopOverView();
