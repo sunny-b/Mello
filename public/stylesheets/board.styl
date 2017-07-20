@@ -1,0 +1,53 @@
+main
+  height: 100%
+  width: 100%
+  position: relative
+  
+#board-wrapper
+  height: 100%
+  display: flex
+  flex-direction: column
+  .board-header
+    padding: 8px 8px 0
+    margin-bottom: 10px
+    .board-title-container
+      cursor: default
+      font-size: 18px
+      font-weight: 700
+      line-height: 30px
+      margin: 0 10px 0 4px
+      height: 30px
+      border-radius: 3px
+      display: inline-block
+      color: #fff
+      &:hover
+        background: rgba(0,0,0,.12)
+        cursor: pointer
+      .board-title
+        padding: 0 8px
+    .private
+      font-size: 12px
+      color: #fff
+      &:before
+        content: ''
+        display: inline-block
+        background: url("/images/sprite.png") -309px -127px
+        height: 12px
+        width: 12px
+        padding-right: 5px
+    
+#board
+  position: relative
+  overflow: hidden
+  height: 100%
+  .board-canvas
+    flex-grow: 1
+    display: flex
+    overflow-y: hidden
+    overflow-x: auto
+    white-space: nowrap
+    position: absolute
+    bottom: 0
+    top: 0
+    right: 0
+    left: 0

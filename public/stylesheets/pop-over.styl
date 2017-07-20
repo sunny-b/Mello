@@ -1,0 +1,117 @@
+.pop-container.search
+.pop-container.notification
+  background: #EDEFF0
+  
+.pop-container.notification
+  width: 340px
+
+.pop-over
+  background: #fff
+  border-radius: 3px
+  border: 1px solid #D6DADC
+  border-bottom-color: #C4C9CC
+  box-shadow: 0 1px 6px rgba(0,0,0,.15)
+  display: none
+  position: absolute
+  width: 300px
+  z-index: 70
+  -webkit-transform: translate3d(0,0,0)
+  textarea
+    height: 72px
+    margin: 4px 0 9pt
+    width: 100%
+  &.is-shown
+    display: block
+  .pop-over-header
+    height: 36px
+    position: relative
+    margin-bottom: 8px
+    text-align: center
+    h1.pop-header-title
+      color: #000
+    .pop-header-title
+      box-sizing: border-box
+      color: #8c8c8c
+      display: block
+      line-height: 36px
+      border-bottom: 1px solid #D6DADC
+      margin: 0 10px
+      overflow: hidden
+      padding: 0 2pc
+      position: relative
+      text-overflow: ellipsis
+      white-space: nowrap
+      z-index: 1
+    .pop-close-btn
+      padding: 10px 10px 10px 4px
+      position: absolute
+      top: 8px
+      right: 18px
+      z-index: 2
+      line-height: 18px
+      background: url('/images/sprite.png') -415px -107px
+      &:hover
+        background-position: -415px -89px
+  .pop-over-content
+    overflow-x: hidden
+    overflow-y: auto
+    padding: 0 10px 10px
+    h1
+      text-align: center
+    .form-grid
+      display: flex
+      flex-wrap: wrap
+      width: 100%
+      .button-link.setting
+        height: 52px
+        float: left
+        position: relative
+        margin-top: 0
+        margin-bottom: 5px
+      .form-grid-child-full
+        flex: 1 1 100%
+        margin: 0 0 8px
+ 
+.button-link
+  .label
+    color: #8c8c8c
+    display: block
+    font-size: 9pt
+    line-height: 14px
+    margin-bottom: 0
+  .value
+    display: block
+    font-size: 18px
+    line-height: 24px
+    overflow: hidden
+    text-overflow: ellipsis
+    color: #000
+  label
+    display: none
+  select
+    border: none
+    cursor: pointer
+    height: 50px
+    left: 0
+    margin: 0
+    opacity: 0
+    position: absolute
+    top: 0
+    z-index: 2
+    width: 100%
+    max-height: 300px
+
+.pop-over-list
+li
+  > a
+    cursor: pointer
+    display: flex
+    font-weight: 700
+    padding: 6px 10px
+    position: relative
+    margin: 0 -10px
+    text-decoration: none
+    color: #444
+    &:hover
+      background-color: #298FCA
+      color: #fff

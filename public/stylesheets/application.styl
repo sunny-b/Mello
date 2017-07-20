@@ -1,0 +1,95 @@
+@import "reset.css"
+@import 'header'
+@import 'add-list'
+@import 'board'
+@import 'lists'
+@import 'labels'
+@import 'card'
+@import 'pop-over'
+@import 'modal'
+@import 'comments'
+@import 'icons-buttons'
+@import 'sidebar'
+@import 'extras'
+
+body
+textarea
+  font: normal 14px/140% Helvetica, Arial, sans-serif
+  
+h1
+  font-size: 1.5em
+  
+a
+  color: #444
+
+.action-card
+  text-decoration: underline
+
+h3
+h4
+h5
+h6
+  font-size: 1pc
+  line-height: 1.25em
+  margin: 0 0 6px
+  color: #4d4d4d
+
+body
+  background-color: rgb(0, 121, 191)
+  color: #4d4d4d
+  height: 100vh
+  width: 100vw
+
+input[type=text]
+  box-sizing: border-box
+  -webkit-appearance: none
+  background-color: #E2E4E6
+  border: 1px solid #CDD2D4
+  border-radius: 3px
+  display: block
+  margin-bottom: 9pt
+  min-height: 2pc
+  padding: 7px
+  font-size: 14px
+  &:focus
+    outline: 0
+
+.extra-space
+  display: inline-block
+  min-width: 5px
+  height: 1px
+
+.hide
+  display: none !important
+
+label
+  display: block
+  font-weight: 700
+  margin-bottom: 4px
+
+.quiet a:not(.disabled):hover
+  color: #4d4d4d
+
+.quiet-button.mod-with-image
+  border-radius: 3px
+
+.quiet a
+  color: #8c8c8c
+  text-decoration: underline
+  
+.quiet-button
+  color: #8c8c8c
+  padding: 6px 8px
+  position: relative
+  user-select: none
+  display: block
+  &:hover
+    background: #D6DADC
+    color: #4d4d4d
+
+.u-clearfix
+  &:after
+    display: table
+  &:after
+    content: ""
+    clear: both

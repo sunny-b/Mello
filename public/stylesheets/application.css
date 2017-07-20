@@ -1,42 +1,20 @@
 @import "reset.css";
-body,
-textarea {
-  font: normal 14px/140% Helvetica, Arial, sans-serif;
-}
-h1 {
-  font-size: 1.5em;
-}
-h3,
-h4,
-h5,
-h6 {
-  font-size: 1pc;
-  line-height: 1.25em;
-  margin: 0 0 6px;
-  color: #4d4d4d;
-}
-body {
-  background-color: #0079bf;
-  color: #4d4d4d;
-  height: 100vh;
-  width: 100vw;
-}
-body header {
+header {
   width: 100%;
   background-color: #026aa7;
   overflow: hidden;
   position: relative;
 }
-body header #dashboard {
+header #dashboard {
   width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 5px;
 }
-body header #dashboard .search-bar {
+header #dashboard .search-bar {
   position: relative;
 }
-body header #dashboard .search-bar input {
+header #dashboard .search-bar input {
   background-color: rgba(255,255,255,0.3);
   border-radius: 3px;
   border: none;
@@ -50,25 +28,25 @@ body header #dashboard .search-bar input {
   line-height: 19px;
   width: 180px;
 }
-body header #dashboard .search-bar input:hover {
+header #dashboard .search-bar input:hover {
   background-color: rgba(255,255,255,0.4);
 }
-body header #dashboard .search-bar input:focus {
+header #dashboard .search-bar input:focus {
   background-color: #fff;
   box-shadow: none;
   color: #4d4d4d;
 }
-body header #dashboard .search-bar input:focus + .search-icon:before {
+header #dashboard .search-bar input:focus + .search-icon:before {
   background-position: 180px 0;
 }
-body header #dashboard .search-bar .search-icon {
+header #dashboard .search-bar .search-icon {
   right: 0;
   top: 0;
   cursor: pointer;
   position: absolute;
   z-index: 2;
 }
-body header #dashboard .search-bar .search-icon:before {
+header #dashboard .search-bar .search-icon:before {
   background: url("/images/sprite.png") 180px -60px;
   content: "";
   width: 100%;
@@ -77,7 +55,7 @@ body header #dashboard .search-bar .search-icon:before {
   display: block;
   position: relative;
 }
-body header #dashboard .logo {
+header #dashboard .logo {
   height: 30px;
   width: 80px;
   background: url("/images/header-logo.png");
@@ -85,98 +63,101 @@ body header #dashboard .logo {
   left: 50%;
   transform: translateX(-50%);
 }
-body header #dashboard .info {
+header #dashboard .info {
   display: flex;
 }
-body header #dashboard .info .user {
+header #dashboard .info .user {
   margin-right: 8px;
 }
-body header #dashboard .info .box {
+header #dashboard .info .box {
   background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0, rgba(255,255,255,0.2) 100%);
   color: #f3f3f3;
   display: block;
   margin-right: 8px;
 }
-body header #dashboard .info .box:hover {
+header #dashboard .info .box:hover {
   background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0, rgba(255,255,255,0.3) 100%);
 }
-body header #dashboard .info .box * {
+header #dashboard .info .box * {
   background: url("/images/sprite.png") 0 0;
   display: block;
   width: 100%;
   height: 100%;
 }
-body header #dashboard .info .box .user-icon {
+header #dashboard .info .box .user-icon {
   background-position: -30px 0;
 }
-body header #dashboard .info .box .notification-icon {
+header #dashboard .info .box .notification-icon {
   background-position: -420px -60px;
 }
-input[type=text] {
-  box-sizing: border-box;
-  -webkit-appearance: none;
+.add-list {
+  height: 77px;
+  padding: 4px;
+  border-radius: 3px;
   background-color: #e2e4e6;
-  border: 1px solid #cdd2d4;
-  border-radius: 3px;
-  display: block;
-  margin-bottom: 9pt;
-  min-height: 2pc;
-  padding: 7px;
-  font-size: 14px;
+  transition: background 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;
+  min-width: 270px;
+  margin: 0 5px;
+  vertical-align: top;
+  white-space: nowrap;
 }
-input[type=text]:focus {
-  outline: 0;
-}
-input[type=submit],
-input[type=button] {
-  border: none;
-  box-shadow: 0 1px 0 #959da1;
+.add-list.idle {
+  background: rgba(0,0,0,0.12);
   cursor: pointer;
-  display: inline-block;
-  font-weight: 700;
-  line-height: 22px;
-  padding: 4px 20px;
-  text-align: center;
-  border-radius: 3px;
-  font-size: 14px;
+  color: #fff;
+  height: 32px;
 }
-input[type=submit].negate,
-input[type=button].negate {
-  background: linear-gradient(to bottom, #d6dadc 0, #cdd2d4 100%);
-  color: #b04632;
+.add-list.idle:hover {
+  background: rgba(0,0,0,0.3);
+}
+.add-list.idle .placeholder {
+  display: block;
+}
+.add-list.idle .list-name-input {
+  background: 0 0;
+  border-color: transparent;
+  box-shadow: none;
+  cursor: pointer;
+  display: none;
+  margin: 0;
+}
+.add-list.idle .list-add-controls {
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.add-list .placeholder {
+  display: none;
+  padding: 7px;
+  color: rgba(255,255,255,0.7);
+  -webkit-transition: color 85ms ease-in;
+  transition: color 85ms ease-in;
+}
+.add-list .list-name-input {
+  background: rgba(0,0,0,0.05);
+  border-color: #aaa;
+  box-shadow: inset 0 1px 8px rgba(0,0,0,0.15);
+  display: block;
+  margin: 0;
+  -webkit-transition: margin 85ms ease-in, background 85ms ease-in;
+  transition: margin 85ms ease-in, background 85ms ease-in;
   width: 100%;
-}
-input[type=submit].negate:hover,
-input[type=button].negate:hover {
-  background: linear-gradient(to bottom, #cf513d 0, #b04632 100%);
-  box-shadow: 0 1px 0 #4d4d4d;
-  color: #fff;
-}
-input[type=submit].primary,
-input[type=button].primary {
-  background: linear-gradient(to bottom, #61bd4f 0, #5aac44 100%);
-  box-shadow: 0 1px 0 #3f6f21;
-  color: #fff;
-}
-input[type=submit].primary:hover,
-input[type=button].primary:hover {
-  background: linear-gradient(to bottom, #5aac44 0, #519839 100%);
 }
 main {
   height: 100%;
   width: 100%;
   position: relative;
 }
-main #board-wrapper {
+#board-wrapper {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-main #board-wrapper .board-header {
+#board-wrapper .board-header {
   padding: 8px 8px 0;
   margin-bottom: 10px;
 }
-main #board-wrapper .board-header .board-title-container {
+#board-wrapper .board-header .board-title-container {
   cursor: default;
   font-size: 18px;
   font-weight: 700;
@@ -187,18 +168,18 @@ main #board-wrapper .board-header .board-title-container {
   display: inline-block;
   color: #fff;
 }
-main #board-wrapper .board-header .board-title-container:hover {
+#board-wrapper .board-header .board-title-container:hover {
   background: rgba(0,0,0,0.12);
   cursor: pointer;
 }
-main #board-wrapper .board-header .board-title-container .board-title {
+#board-wrapper .board-header .board-title-container .board-title {
   padding: 0 8px;
 }
-main #board-wrapper .board-header .private {
+#board-wrapper .board-header .private {
   font-size: 12px;
   color: #fff;
 }
-main #board-wrapper .board-header .private:before {
+#board-wrapper .board-header .private:before {
   content: '';
   display: inline-block;
   background: url("/images/sprite.png") -309px -127px;
@@ -206,12 +187,12 @@ main #board-wrapper .board-header .private:before {
   width: 12px;
   padding-right: 5px;
 }
-main #board-wrapper #board {
+#board {
   position: relative;
   overflow: hidden;
   height: 100%;
 }
-main #board-wrapper #board .board-canvas {
+#board .board-canvas {
   flex-grow: 1;
   display: flex;
   overflow-y: hidden;
@@ -223,11 +204,11 @@ main #board-wrapper #board .board-canvas {
   right: 0;
   left: 0;
 }
-main #board-wrapper #board .board-canvas #lists {
+#lists {
   display: flex;
   height: 100%;
 }
-main #board-wrapper #board .board-canvas #lists .list {
+#lists .list {
   margin: 0 5px;
   width: 270px;
   background: #e2e4e6;
@@ -241,26 +222,26 @@ main #board-wrapper #board .board-canvas #lists .list {
   position: relative;
   white-space: normal;
 }
-main #board-wrapper #board .board-canvas #lists .list:first-child {
+#lists .list:first-child {
   margin-left: 10px;
 }
-main #board-wrapper #board .board-canvas #lists .list .open-card-composer {
+#lists .list .open-card-composer {
   padding: 10px 15px;
   color: #4d4d4d;
 }
-main #board-wrapper #board .board-canvas #lists .list .open-card-composer:hover {
+#lists .list .open-card-composer:hover {
   background-color: #cdd2d4;
   color: #4d4d4d;
   text-decoration: underline;
 }
-main #board-wrapper #board .board-canvas #lists .list .list-header {
+#lists .list .list-header {
   display: flex;
   flex: 0 0 auto;
   padding: 8px 10px;
   position: relative;
   min-height: 18px;
 }
-main #board-wrapper #board .board-canvas #lists .list .list-header .list-header-target {
+#lists .list .list-header .list-header-target {
   cursor: pointer;
   position: absolute;
   top: 0;
@@ -268,10 +249,10 @@ main #board-wrapper #board .board-canvas #lists .list .list-header .list-header-
   right: 0;
   bottom: 0;
 }
-main #board-wrapper #board .board-canvas #lists .list .list-header .list-header-target.is-hidden {
+#lists .list .list-header .list-header-target.is-hidden {
   display: none;
 }
-main #board-wrapper #board .board-canvas #lists .list .list-header textarea {
+#lists .list .list-header textarea {
   box-sizing: border-box;
   background: 0 0;
   border: none;
@@ -286,25 +267,25 @@ main #board-wrapper #board .board-canvas #lists .list .list-header textarea {
   max-height: 16pc;
   flex-grow: 1;
 }
-main #board-wrapper #board .board-canvas #lists .list .list-header textarea:focus {
+#lists .list .list-header textarea:focus {
   background-color: rgba(255,255,255,0.85);
   outline: 0;
 }
-main #board-wrapper #board .board-canvas #lists .list .list-header .list-hamburger,
-main #board-wrapper #board .board-canvas #lists .list .list-header .js-list-subscribed {
+#lists .list .list-header .list-hamburger,
+#lists .list .list-header .js-list-subscribed {
   display: block;
   padding: 4px;
   height: 18px;
   width: 18px;
   text-align: center;
 }
-main #board-wrapper #board .board-canvas #lists .list .list-header .list-hamburger:hover,
-main #board-wrapper #board .board-canvas #lists .list .list-header .js-list-subscribed:hover {
+#lists .list .list-header .list-hamburger:hover,
+#lists .list .list-header .js-list-subscribed:hover {
   border-radius: 3px;
   background: #cdd2d4;
 }
-main #board-wrapper #board .board-canvas #lists .list .list-header .list-hamburger .list-icon,
-main #board-wrapper #board .board-canvas #lists .list .list-header .js-list-subscribed .list-icon {
+#lists .list .list-header .list-hamburger .list-icon,
+#lists .list .list-header .js-list-subscribed .list-icon {
   font-size: 14px;
   color: #444;
   width: 100%;
@@ -313,113 +294,110 @@ main #board-wrapper #board .board-canvas #lists .list .list-header .js-list-subs
   position: relative;
   bottom: 4px;
 }
-main #board-wrapper #board .board-canvas .add-list {
-  height: 77px;
-  padding: 4px;
-  border-radius: 3px;
-  background-color: #e2e4e6;
-  transition: background 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;
-  min-width: 270px;
-  margin: 0 5px;
-  vertical-align: top;
-  white-space: nowrap;
-}
-main #board-wrapper #board .board-canvas .add-list.idle {
-  background: rgba(0,0,0,0.12);
-  cursor: pointer;
-  color: #fff;
-  height: 32px;
-}
-main #board-wrapper #board .board-canvas .add-list.idle:hover {
-  background: rgba(0,0,0,0.3);
-}
-main #board-wrapper #board .board-canvas .add-list.idle .placeholder {
-  display: block;
-}
-main #board-wrapper #board .board-canvas .add-list.idle .list-name-input {
-  background: 0 0;
-  border-color: transparent;
-  box-shadow: none;
-  cursor: pointer;
-  display: none;
-  margin: 0;
-}
-main #board-wrapper #board .board-canvas .add-list.idle .list-add-controls {
-  height: 0;
-  margin: 0;
-  overflow: hidden;
-}
-main #board-wrapper #board .board-canvas .add-list .placeholder {
-  display: none;
-  padding: 7px;
-  color: rgba(255,255,255,0.7);
-  -webkit-transition: color 85ms ease-in;
-  transition: color 85ms ease-in;
-}
-main #board-wrapper #board .board-canvas .add-list .list-name-input {
-  background: rgba(0,0,0,0.05);
-  border-color: #aaa;
-  box-shadow: inset 0 1px 8px rgba(0,0,0,0.15);
-  display: block;
-  margin: 0;
-  -webkit-transition: margin 85ms ease-in, background 85ms ease-in;
-  transition: margin 85ms ease-in, background 85ms ease-in;
-  width: 100%;
-}
 .list-extras {
   display: flex;
   right: 4px;
   top: 4px;
-}
-.icon-sm {
-  height: 18px;
-  line-height: 18px;
-  width: 18px;
-  display: inline-block;
-}
-.icon-check {
-  background: url("/images/sprite.png") -181px -127px;
-  margin-left: 3px;
-}
-.icon-subscribe {
-  background: url("/images/sprite.png") -305px -90px;
-  display: inline-block;
-  height: 18px;
-  width: 18px;
-}
-.list-add-controls,
-.card-add-controls {
-  transition: margin 85ms ease-in, height 85ms ease-in;
-}
-.cancel-edit,
-.dialog-close-button {
-  display: inline-block;
-  margin-left: 5px;
-  background: url("/images/sprite.png") 60px -30px;
-  position: relative;
-  top: 10px;
-}
-.cancel-edit.white-hover:hover,
-.dialog-close-button.white-hover:hover {
-  background-position: 60px -60px;
-}
-.cancel-edit:hover,
-.dialog-close-button:hover {
-  background-position: 60px 0;
-}
-.extra-space {
-  display: inline-block;
-  min-width: 5px;
-  height: 1px;
-}
-.hide {
-  display: none !important;
 }
 .card-composer {
   flex: 1 1 auto;
   overflow-y: auto;
   margin: 0 4px;
   padding: 0 4px 8px;
+}
+.edit-labels-pop-over {
+  margin-bottom: 8px;
+}
+.edit-labels-pop-over li {
+  position: relative;
+}
+.card-label.mod-selectable {
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0 0 4px;
+  min-height: 18px;
+  padding: 8px;
+  position: relative;
+  -webkit-transition: padding 85ms, margin 85ms, box-shadow 85ms;
+  transition: padding 85ms, margin 85ms, box-shadow 85ms;
+}
+.card-label.mod-selectable:hover {
+  margin-left: 4px;
+}
+.card-label-green {
+  background-color: #61bd4f;
+}
+.card-label-yellow {
+  background-color: #f2d600;
+}
+.card-label-orange {
+  background-color: #ffab4a;
+}
+.card-label-red {
+  background-color: #eb5a46;
+}
+.card-label-purple {
+  background-color: #c377e0;
+}
+.card-label-blue {
+  background-color: #0079bf;
+}
+.card-label-green.mod-selectable:hover {
+  box-shadow: -8px 0 #519839;
+}
+.card-label-yellow.mod-selectable:hover {
+  box-shadow: -8px 0 #d9b51c;
+}
+.card-label-orange.mod-selectable:hover {
+  box-shadow: -8px 0 #d29034;
+}
+.card-label-red.mod-selectable:hover {
+  box-shadow: -8px 0 #b04632;
+}
+.card-label-purple.mod-selectable:hover {
+  box-shadow: -8px 0 #89609e;
+}
+.card-label-blue.mod-selectable:hover {
+  box-shadow: -8px 0 #055a8c;
+}
+.card-label {
+  border-radius: 3px;
+  color: #fff;
+  display: block;
+  font-weight: 700;
+  margin-right: 3px;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 3px 6px;
+  position: relative;
+  text-overflow: ellipsis;
+  text-shadow: 0 0 5px rgba(0,0,0,0.2), 0 0 2px #000;
+  white-space: nowrap;
+}
+.card-label.mod-card-detail {
+  border-radius: 3px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 4px 4px 0;
+  min-width: 40px;
+  padding: 0 10px;
+  width: auto;
+}
+.list-card-labels {
+  margin: 2px 0;
+  overflow: auto;
+}
+.card-label.mod-card-front {
+  float: left;
+  height: 8px;
+  margin: 0 3px 3px 0;
+  padding: 0;
+  width: 42px;
+  line-height: 75pt;
 }
 .list-card {
   background-color: #fff;
@@ -511,12 +489,6 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
   word-wrap: break-word;
   color: #4d4d4d;
   display: block;
-}
-.icon-lg {
-  height: 30px;
-  font-size: 20px;
-  line-height: 30px;
-  width: 30px;
 }
 .quick-card-editor {
   background: rgba(0,0,0,0.6);
@@ -629,11 +601,6 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
   flex: 1 1 100%;
   margin: 0 0 8px;
 }
-label {
-  display: block;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
 .button-link .label {
   color: #8c8c8c;
   display: block;
@@ -680,12 +647,6 @@ li > a {
 li > a:hover {
   background-color: #298fca;
   color: #fff;
-}
-a {
-  color: #444;
-}
-.action-card {
-  text-decoration: underline;
 }
 #window-overlay {
   align-items: flex-start;
@@ -959,39 +920,13 @@ textarea:focus {
   display: none;
   position: relative;
 }
-.quiet a:not(.disabled):hover {
-  color: #4d4d4d;
-}
-.quiet-button.mod-with-image {
-  border-radius: 3px;
-}
-.icon-description {
-  background: url("/images/sprite.png") -234px -88px;
-}
-.window-header-icon {
-  background: url("/images/sprite.png") 390px 0;
-}
-.quiet a {
+input[type=submit].primary:disabled,
+input[type=submit].primary:disabled:hover {
+  background: #e2e4e6;
+  box-shadow: none;
   color: #8c8c8c;
-  text-decoration: underline;
-}
-.quiet-button {
-  color: #8c8c8c;
-  padding: 6px 8px;
-  position: relative;
-  user-select: none;
-  display: block;
-}
-.quiet-button:hover {
-  background: #d6dadc;
-  color: #4d4d4d;
-}
-.u-clearfix:after {
-  display: table;
-}
-.u-clearfix:after {
-  content: "";
-  clear: both;
+  cursor: default;
+  font-weight: 400;
 }
 .new-comment .member {
   position: absolute;
@@ -1040,25 +975,6 @@ textarea:focus {
 .comment-frame .comment-box .comment-box-input:active {
   outline: 0;
 }
-input[type=submit]:disabled,
-input[type=submit]:disabled:hover {
-  background: #e2e4e6;
-  box-shadow: none;
-  color: #8c8c8c;
-  cursor: default;
-  font-weight: 400;
-}
-.icon-comment {
-  background-image: url("/images/sprite.png");
-  background-position: -150px 0;
-}
-.icon-comment.icon-sm {
-  background-position: -88px -90px;
-}
-.icon-activity {
-  background-position: -240px 0;
-  background-image: url("/images/sprite.png");
-}
 .comment-controls {
   margin-top: 8px;
 }
@@ -1072,6 +988,10 @@ input[type=submit]:disabled:hover {
   min-height: 30px;
   padding: 10px 0;
   position: relative;
+}
+.phenom:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
 }
 .phenom .comment-box {
   display: none;
@@ -1124,12 +1044,44 @@ input[type=submit]:disabled:hover {
 .action-comment p:last-child {
   margin-bottom: 0;
 }
-.window-sidebar {
-  float: right;
-  padding: 8px 9pt 9pt 0;
-  width: 140px;
-  z-index: 10;
-  overflow: hidden;
+.icon-lg {
+  height: 30px;
+  font-size: 20px;
+  line-height: 30px;
+  width: 30px;
+}
+.icon-sm {
+  height: 18px;
+  line-height: 18px;
+  width: 18px;
+  display: inline-block;
+}
+.icon-description {
+  background: url("/images/sprite.png") -234px -88px;
+}
+.window-header-icon {
+  background: url("/images/sprite.png") 390px 0;
+}
+.icon-comment {
+  background-image: url("/images/sprite.png");
+  background-position: -150px 0;
+}
+.icon-comment.icon-sm {
+  background-position: -88px -90px;
+}
+.icon-activity {
+  background-position: -240px 0;
+  background-image: url("/images/sprite.png");
+}
+.icon-check {
+  background: url("/images/sprite.png") -181px -127px;
+  margin-left: 3px;
+}
+.icon-subscribe {
+  background: url("/images/sprite.png") -305px -90px;
+  display: inline-block;
+  height: 18px;
+  width: 18px;
 }
 .button-link .icon-archive {
   background: url("/images/sprite.png") -397px -87px;
@@ -1166,6 +1118,77 @@ input[type=submit]:disabled:hover {
 }
 .button-link:hover .icon-subscribe {
   background-position: -307px -123px;
+}
+.js-badges {
+  display: flex;
+}
+.js-badges .icon-clock {
+  background: url("/images/sprite.png") -197px -90px;
+}
+.js-badges .icon-description {
+  background: url("/images/sprite.png") -232px -91px;
+}
+input[type=submit],
+input[type=button] {
+  border: none;
+  box-shadow: 0 1px 0 #959da1;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 700;
+  line-height: 22px;
+  padding: 4px 20px;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 14px;
+}
+input[type=submit].negate,
+input[type=button].negate {
+  background: linear-gradient(to bottom, #d6dadc 0, #cdd2d4 100%);
+  color: #b04632;
+  width: 100%;
+}
+input[type=submit].negate:hover,
+input[type=button].negate:hover {
+  background: linear-gradient(to bottom, #cf513d 0, #b04632 100%);
+  box-shadow: 0 1px 0 #4d4d4d;
+  color: #fff;
+}
+input[type=submit].primary,
+input[type=button].primary {
+  background: linear-gradient(to bottom, #61bd4f 0, #5aac44 100%);
+  box-shadow: 0 1px 0 #3f6f21;
+  color: #fff;
+}
+input[type=submit].primary:hover,
+input[type=button].primary:hover {
+  background: linear-gradient(to bottom, #5aac44 0, #519839 100%);
+}
+.list-add-controls,
+.card-add-controls {
+  transition: margin 85ms ease-in, height 85ms ease-in;
+}
+.cancel-edit,
+.dialog-close-button {
+  display: inline-block;
+  margin-left: 5px;
+  background: url("/images/sprite.png") 60px -30px;
+  position: relative;
+  top: 10px;
+}
+.cancel-edit.white-hover:hover,
+.dialog-close-button.white-hover:hover {
+  background-position: 60px -60px;
+}
+.cancel-edit:hover,
+.dialog-close-button:hover {
+  background-position: 60px 0;
+}
+.window-sidebar {
+  float: right;
+  padding: 8px 9pt 9pt 0;
+  width: 140px;
+  z-index: 10;
+  overflow: hidden;
 }
 .button-link {
   background: linear-gradient(to bottom, #fff 0, #f8f9f9 100%);
@@ -1225,100 +1248,6 @@ input[type=submit]:disabled:hover {
 .delete-text p {
   margin-bottom: 5px;
 }
-.edit-labels-pop-over {
-  margin-bottom: 8px;
-}
-.edit-labels-pop-over li {
-  position: relative;
-}
-.card-label.mod-selectable {
-  border-radius: 3px;
-  cursor: pointer;
-  margin: 0 0 4px;
-  min-height: 18px;
-  padding: 8px;
-  position: relative;
-  -webkit-transition: padding 85ms, margin 85ms, box-shadow 85ms;
-  transition: padding 85ms, margin 85ms, box-shadow 85ms;
-}
-.card-label.mod-selectable:hover {
-  margin-left: 4px;
-}
-.card-label-green {
-  background-color: #61bd4f;
-}
-.card-label-yellow {
-  background-color: #f2d600;
-}
-.card-label-orange {
-  background-color: #ffab4a;
-}
-.card-label-red {
-  background-color: #eb5a46;
-}
-.card-label-purple {
-  background-color: #c377e0;
-}
-.card-label-blue {
-  background-color: #0079bf;
-}
-.card-label-green.mod-selectable:hover {
-  box-shadow: -8px 0 #519839;
-}
-.card-label-yellow.mod-selectable:hover {
-  box-shadow: -8px 0 #d9b51c;
-}
-.card-label-orange.mod-selectable:hover {
-  box-shadow: -8px 0 #d29034;
-}
-.card-label-red.mod-selectable:hover {
-  box-shadow: -8px 0 #b04632;
-}
-.card-label-purple.mod-selectable:hover {
-  box-shadow: -8px 0 #89609e;
-}
-.card-label-blue.mod-selectable:hover {
-  box-shadow: -8px 0 #055a8c;
-}
-.card-label {
-  border-radius: 3px;
-  color: #fff;
-  display: block;
-  font-weight: 700;
-  margin-right: 3px;
-  max-width: 100%;
-  overflow: hidden;
-  padding: 3px 6px;
-  position: relative;
-  text-overflow: ellipsis;
-  text-shadow: 0 0 5px rgba(0,0,0,0.2), 0 0 2px #000;
-  white-space: nowrap;
-}
-.card-label.mod-card-detail {
-  border-radius: 3px;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: block;
-  float: left;
-  height: 30px;
-  line-height: 30px;
-  margin: 0 4px 4px 0;
-  min-width: 40px;
-  padding: 0 10px;
-  width: auto;
-}
-.list-card-labels {
-  margin: 2px 0;
-  overflow: auto;
-}
-.card-label.mod-card-front {
-  float: left;
-  height: 8px;
-  margin: 0 3px 3px 0;
-  padding: 0;
-  width: 42px;
-  line-height: 75pt;
-}
 .badge {
   color: #8c8c8c;
   display: flex;
@@ -1335,15 +1264,6 @@ input[type=submit]:disabled:hover {
   font-size: 9pt;
   padding: 0 2px;
   white-space: nowrap;
-}
-.js-badges {
-  display: flex;
-}
-.js-badges .icon-clock {
-  background: url("/images/sprite.png") -197px -90px;
-}
-.js-badges .icon-description {
-  background: url("/images/sprite.png") -232px -91px;
 }
 .ui-datepicker {
   margin: 0 auto;
@@ -1389,4 +1309,88 @@ input[type=submit]:disabled:hover {
 }
 .phenom.mod-other-type .phenom-creator {
   top: 4px;
+}
+body,
+textarea {
+  font: normal 14px/140% Helvetica, Arial, sans-serif;
+}
+h1 {
+  font-size: 1.5em;
+}
+a {
+  color: #444;
+}
+.action-card {
+  text-decoration: underline;
+}
+h3,
+h4,
+h5,
+h6 {
+  font-size: 1pc;
+  line-height: 1.25em;
+  margin: 0 0 6px;
+  color: #4d4d4d;
+}
+body {
+  background-color: #0079bf;
+  color: #4d4d4d;
+  height: 100vh;
+  width: 100vw;
+}
+input[type=text] {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  background-color: #e2e4e6;
+  border: 1px solid #cdd2d4;
+  border-radius: 3px;
+  display: block;
+  margin-bottom: 9pt;
+  min-height: 2pc;
+  padding: 7px;
+  font-size: 14px;
+}
+input[type=text]:focus {
+  outline: 0;
+}
+.extra-space {
+  display: inline-block;
+  min-width: 5px;
+  height: 1px;
+}
+.hide {
+  display: none !important;
+}
+label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.quiet a:not(.disabled):hover {
+  color: #4d4d4d;
+}
+.quiet-button.mod-with-image {
+  border-radius: 3px;
+}
+.quiet a {
+  color: #8c8c8c;
+  text-decoration: underline;
+}
+.quiet-button {
+  color: #8c8c8c;
+  padding: 6px 8px;
+  position: relative;
+  user-select: none;
+  display: block;
+}
+.quiet-button:hover {
+  background: #d6dadc;
+  color: #4d4d4d;
+}
+.u-clearfix:after {
+  display: table;
+}
+.u-clearfix:after {
+  content: "";
+  clear: both;
 }

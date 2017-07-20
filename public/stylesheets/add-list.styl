@@ -1,0 +1,48 @@
+.add-list
+  height: 77px
+  padding: 4px
+  border-radius: 3px
+  background-color: #E2E4E6
+  transition: background 85ms ease-in,
+              opacity 40ms ease-in,
+              border-color 85ms ease-in
+  min-width: 270px
+  margin: 0 5px
+  vertical-align: top
+  white-space: nowrap
+  &.idle
+    background: rgba(0,0,0,.12)
+    cursor: pointer
+    color: #fff
+    height: 32px
+    &:hover
+      background: rgba(0,0,0,.3)
+    .placeholder
+      display: block
+    .list-name-input
+      background: 0 0
+      border-color: transparent
+      box-shadow: none
+      cursor: pointer
+      display: none
+      margin: 0
+    .list-add-controls
+      height: 0
+      margin: 0
+      overflow: hidden
+  .placeholder
+    display: none
+    padding: 7px
+    color: rgba(255,255,255,.7)
+    -webkit-transition: color 85ms ease-in
+    transition: color 85ms ease-in
+  .list-name-input
+    background: rgba(0,0,0,.05)
+    border-color: #aaa
+    box-shadow: inset 0 1px 8px rgba(0,0,0,.15)
+    display: block
+    margin: 0
+    -webkit-transition: margin 85ms ease-in,background 85ms ease-in
+    transition: margin 85ms ease-in,background 85ms ease-in
+    width: 100%
+          
