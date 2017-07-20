@@ -543,8 +543,12 @@ main #board-wrapper #board .board-canvas .add-list .list-name-input {
   position: absolute;
   width: 254px;
 }
-.pop-container.search {
-  background: #e2e4e6;
+.pop-container.search,
+.pop-container.notification {
+  background: #edeff0;
+}
+.pop-container.notification {
+  width: 340px;
 }
 .pop-over {
   background: #fff;
@@ -676,6 +680,12 @@ li > a {
 li > a:hover {
   background-color: #298fca;
   color: #fff;
+}
+a {
+  color: #444;
+}
+.action-card {
+  text-decoration: underline;
 }
 #window-overlay {
   align-items: flex-start;
@@ -1052,8 +1062,12 @@ input[type=submit]:disabled:hover {
 .comment-controls {
   margin-top: 8px;
 }
+.notification-wrapper:last-child .phenom {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
 .phenom {
-  border-bottom: 1px solid #e2e4e6;
+  border-bottom: 1px solid #d2d4d6;
   margin-left: 38px;
   min-height: 30px;
   padding: 10px 0;
@@ -1064,10 +1078,6 @@ input[type=submit]:disabled:hover {
 }
 .phenom.mod-other-type {
   min-height: 18px;
-}
-.phenom:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
 }
 .phenom .phenom-creator {
   height: 30px;
@@ -1080,7 +1090,7 @@ input[type=submit]:disabled:hover {
   display: block;
   word-wrap: break-word;
 }
-.phenom .phenom-meta {
+.phenom-meta {
   font-size: 9pt;
   margin: 0;
   min-width: 110px;
@@ -1365,4 +1375,18 @@ input[type=submit]:disabled:hover {
   display: block;
   padding: 6px;
   text-align: center;
+  padding: 24px 6px;
+}
+.notifications .phenom-meta {
+  display: none;
+}
+.phenom-creator {
+  height: 30px;
+  left: -38px;
+  position: absolute;
+  top: 13px;
+  width: 30px;
+}
+.phenom.mod-other-type .phenom-creator {
+  top: 4px;
 }

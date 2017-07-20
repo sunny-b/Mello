@@ -20,7 +20,7 @@ var App = {
     var searchWidth = 180;
 
     this.closePopOver();
-    this.popOver = new SearchView();
+    this.popOver = new SearchView({ collection: cards });
     this.$popUp.html(this.popOver.el);
     this.showPopOver($offset.top + searchHeight, $offset.left + searchWidth);
 
@@ -53,8 +53,22 @@ var App = {
 
     return results;
   },
+  retrieveCardByID: function(id) {
+    var card;
+    App.lists.each(function(list) {
+      if (list.cards.get(id)) {
+        card = list.cards.get(id);
+      }
+    });
+
+    return card;
+  },
   renderCardModal: function(model) {
     this.closePopOver();
+
+    if (!(model instanceof CardModel)) {
+      model = this.retrieveCardByID(model);
+    }
 
     this.cardModal = new CardModalView({
       model: model,
@@ -130,12 +144,33 @@ var App = {
   },
   openNotifications: function() {
     var $offset = $('.notifications').offset();
-    var popOverWidth = 272;
+    var popOverWidth = 312;
+    var elementHeight = 30;
+    var notifications = new CommentsCollection(this.getNotifications());
 
     this.closePopOver();
-    this.popOver = new NotificationsView();
+    this.popOver = new NotificationsPopOverView();
     this.$popUp.html(this.popOver.el);
-    this.showPopOver($offset.top, $offset.left - popOverWidth);
+    this.showPopOver($offset.top + 30, $offset.left - popOverWidth);
+
+    this.populateNotifications(notifications);
+  },
+  populateNotifications: function(notifications) {
+    if (notifications.length > 0) {
+      notifications.each(function(model) {
+        var $model = new NotificationView({ model: model });
+        $('.notifications').append($model.el);
+      });
+    } else {
+      $('.pop-over-content').append('<p class="empty"><span>No Notifications</span></p>')
+    };
+  },
+  getNotifications: function() {
+    var notifications = this.board.get('notifications');
+    var sortedResults = notifications.sort((obj1, obj2) => obj2.timestamp - obj1.timestamp);
+    var truncatedResults = sortedResults.slice(0, 10);
+
+    return truncatedResults;
   },
   moveList: function(newPosition, model) {
     this.lists.trigger('moveList', newPosition, model);
@@ -151,6 +186,9 @@ var App = {
     list.copyCard(newName, newID, newPosition, card);
     this.board.incrementCardID();
     App.closeCardModal();
+  },
+  addNotification: function(type, text, card) {
+    this.board.addNotification(type, text, card);
   },
   binds: function() {
     _.extend(this, Backbone.Events);
@@ -168,6 +206,7 @@ var App = {
     this.on('moveList', this.moveList.bind(this));
     this.on('moveCard', this.moveCard.bind(this));
     this.on('copyCard', this.copyCard.bind(this));
+    this.on('addNotification', this.addNotification.bind(this));
   },
   init: function() {
     this.lists = this.board.lists;

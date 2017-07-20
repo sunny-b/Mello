@@ -36,7 +36,6 @@ module.exports = function(router) {
     var oldCard = _(cards).findWhere({ id: +req.params.cardID });
     
     _.extend(oldCard, newCard);
-    console.log(oldCard);
     Board.save(board);
     res.status(200).end();
   }).delete(function(req, res) {

@@ -9,7 +9,8 @@ module.exports = function(router) {
     board = Board.get();
     board.lastCardID = +req.body.lastCardID;
     board.lastListID = +req.body.lastListID;
-
+    board.notifications = req.body.notifications;
+    console.log(req.body.notifications);
     Board.save(board);
     res.status(200).end();
   });

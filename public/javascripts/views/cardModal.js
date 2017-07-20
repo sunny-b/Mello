@@ -105,11 +105,22 @@ var CardModalView = Backbone.View.extend({
   deleteCardPop: function(e) {
     this.updatePopOver(e, 'deleteCard');
   },
+  renderComments: function() {
+    var self = this;
+    var $comment;
+    this.comments = new CommentsCollection(this.model.get('comments'));
+
+    this.comments.each(function(comment) {
+      $comment = new CommentView({ model: comment });
+      self.$('.list-comments').append($comment.el);
+    });
+  },
   render: function() {
     this.$el.html(this.template({
       card: this.model.toJSON(),
       list: this.list.toJSON()
     }));
+    this.renderComments();
     this.delegateEvents();
   },
   initialize: function(options) {

@@ -59,10 +59,18 @@ var CardPopOverView = Backbone.View.extend({
 
     if (newName === '') return false;
 
+    if (this.card.get('subscribed')) {
+      App.trigger('addNotification', 'copy', 'copied', this.card);
+    }
+
     App.trigger('copyCard', newName, newListID, newPosition, newCard)
   },
   deleteCard: function(e) {
     e.preventDefault();
+
+    if (this.card.get('subscribed')) {
+      App.trigger('addNotification', 'archive', 'archived', this.card);
+    }
 
     this.card.destroy();
   },

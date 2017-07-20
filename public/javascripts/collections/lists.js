@@ -16,6 +16,10 @@ var ListsCollection = Backbone.Collection.extend({
     oldListCards.remove(card);
     card.set('listID', newList.get('id'))
     newListCards.add(card, { at: newPosition });
+
+    if (card.get('subscribed')) {
+      App.trigger('addNotification', 'move', 'moved', card);
+    }
     
     [oldListCards, newListCards].forEach(cards => cards.syncUp());
   },

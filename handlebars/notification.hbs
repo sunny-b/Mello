@@ -1,0 +1,37 @@
+{{#ifCommentType}}
+<div class="phenom mod-comment-type">
+  <div class="phenom-creator">
+    <div class="member js-show-mem-menu" idmember="5960fe60783922c510c83ede">
+      <span class="member-gold-badge" title="This member has Trello Gold."></span>
+    </div>
+  </div>
+
+  <div class="phenom-desc">
+    <span class="inline-member js-show-mem-menu" idmember="5960fe60783922c510c83ede">
+      <span class="u-font-weight-bold">User</span>
+    </span> on <a class="action-card" data-id="{{cardID}}" href="#">{{card}}</a>
+
+    <div class="comment-container">
+      <div class="action-comment markeddown js-comment is-truncated" dir="auto">
+        <div class="current-comment js-friendly-links js-open-card">
+          <p>{{text}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{else}}
+<div class="phenom mod-other-type">
+  <div class="phenom-creator">
+    <div class="member js-show-mem-menu" idmember="5960fe60783922c510c83ede">
+      <span class="member-gold-badge" title="This member has Trello Gold."></span>
+    </div>
+  </div>
+
+  <div class="phenom-desc">
+    <span class="inline-member js-show-mem-menu" idmember="5960fe60783922c510c83ede">
+      <span class="u-font-weight-bold">User</span>
+    </span> {{text}} <a class="action-card" data-id="{{cardID}}" href="#">{{card}}</a>
+  </div>
+</div>
+{{/ifCommentType}}

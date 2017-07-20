@@ -52,10 +52,6 @@ this["JST"]["cardModal"] = Handlebars.template({"1":function(container,depth0,he
     + container.escapeExpression(container.lambda((depth0 != null ? depth0.color : depth0), depth0))
     + " mod-card-detail mod-clickable\" title=\"\">&nbsp;</span>";
 },"5":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"phenom mod-comment-type\"><div class=\"phenom-creator\"><div class=\"member js-show-mem-menu\" idmember=\"5960fe60783922c510c83ede\"><span class=\"member-gold-badge\" title=\"This member has Trello Gold.\"></span></div></div><div class=\"phenom-desc\"><span class=\"inline-member js-show-mem-menu\" idmember=\"5960fe60783922c510c83ede\"><span class=\"u-font-weight-bold\">User</span></span><div class=\"comment-container\"><div class=\"action-comment markeddown js-comment\" dir=\"auto\"><div class=\"current-comment js-friendly-links js-open-card\"><p>"
-    + container.escapeExpression(container.lambda((depth0 != null ? depth0.text : depth0), depth0))
-    + "</p></div></div></div></div><p class=\"phenom-meta quiet\"><span class=\"js-hide-on-sending\"><a class=\"js-confirm-delete-action\" href=\"#\">Delete</a></span></p></div>";
-},"7":function(container,depth0,helpers,partials,data) {
     return "is-on";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {});
@@ -84,11 +80,17 @@ this["JST"]["cardModal"] = Handlebars.template({"1":function(container,depth0,he
     + ((stack1 = helpers["if"].call(alias3,((stack1 = (depth0 != null ? depth0.card : depth0)) != null ? stack1.description : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\" href=\"#\"><span class=\"icon-sm icon-description quiet-button-icon\"></span>&nbsp;Edit the description…</a></p><div class=\"card-detail-edit edit\"><form class=\"card-desc-form\" action=\"/cards\" method=\"put\"><textarea class=\"field\" placeholder=\"Add a more detailed description…\" style=\"overflow: hidden; word-wrap: break-word; resize: none; height: 108px;\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.card : depth0)) != null ? stack1.description : stack1), depth0))
-    + "</textarea><div class=\"edit-controls u-clearfix\"><input class=\"primary confirm mod-submit-edit js-save-edit\" type=\"submit\" value=\"Save\"><a class=\"icon-lg icon-close dark-hover cancel cancel-edit\" href=\"#\"></a></div></form></div></div></div></div><div class=\"window-module add-comment-section\"><div class=\"window-module-title window-module-title-no-divider\"><span class=\"window-module-title-icon icon-lg icon-comment\"></span><h3>Add Comment</h3></div><div class=\"new-comment js-new-comment\"><div class=\"member member-no-menu\"></div><form class=\"card-comment-form\" action=\"/cards\" method=\"put\"><div class=\"comment-frame\"><div class=\"comment-box\"><textarea class=\"comment-box-input js-new-comment-input\" placeholder=\"Write a comment…\" tabindex=\"1\" dir=\"auto\" style=\"overflow: hidden; word-wrap: break-word; height: 75px;\"></textarea></div></div><div class=\"comment-controls u-clearfix\"><input class=\"primary confirm mod-no-top-bottom-margin js-add-comment\" tabindex=\"3\" type=\"submit\" value=\"Save\" disabled=\"\"></div></form></div></div><div class=\"window-module\"><div class=\"window-module-title window-module-title-no-divider\"><span class=\"window-module-title-icon icon-lg icon-activity\"></span><h3>Activity</h3></div><div class=\"js-list-actions\">"
-    + ((stack1 = helpers.each.call(alias3,((stack1 = (depth0 != null ? depth0.card : depth0)) != null ? stack1.comments : stack1),{"name":"each","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "</div></div></div><div class=\"window-sidebar\"><div class=\"window-module u-clearfix\"><h3>Add</h3><div class=\"u-clearfix\"><a class=\"button-link js-edit-labels\" href=\"#\"><span class=\"icon-sm icon-label\"></span>&nbsp;Labels</a><a class=\"button-link js-add-due-date\" href=\"#\"><span class=\"icon-sm icon-clock\"></span>&nbsp;Due Date</a></div></div><div class=\"window-module other-actions u-clearfix\"><h3>Actions</h3><div class=\"u-clearfix\"><a class=\"button-link js-move-card\" href=\"#\"><span class=\"icon-sm icon-move\"></span>&nbsp;Move</a><a class=\"button-link js-copy-card\" href=\"#\"><span class=\"icon-sm icon-card\"></span>&nbsp;Copy</a><div class=\"js-subscribe-sidebar-button\"><a class=\"button-link js-subscribe "
-    + ((stack1 = helpers["if"].call(alias3,((stack1 = (depth0 != null ? depth0.card : depth0)) != null ? stack1.subscribed : stack1),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "</textarea><div class=\"edit-controls u-clearfix\"><input class=\"primary confirm mod-submit-edit js-save-edit\" type=\"submit\" value=\"Save\"><a class=\"icon-lg icon-close dark-hover cancel cancel-edit\" href=\"#\"></a></div></form></div></div></div></div><div class=\"window-module add-comment-section\"><div class=\"window-module-title window-module-title-no-divider\"><span class=\"window-module-title-icon icon-lg icon-comment\"></span><h3>Add Comment</h3></div><div class=\"new-comment js-new-comment\"><div class=\"member member-no-menu\"></div><form class=\"card-comment-form\" action=\"/cards\" method=\"put\"><div class=\"comment-frame\"><div class=\"comment-box\"><textarea class=\"comment-box-input js-new-comment-input\" placeholder=\"Write a comment…\" tabindex=\"1\" dir=\"auto\" style=\"overflow: hidden; word-wrap: break-word; height: 75px;\"></textarea></div></div><div class=\"comment-controls u-clearfix\"><input class=\"primary confirm mod-no-top-bottom-margin js-add-comment\" tabindex=\"3\" type=\"submit\" value=\"Save\" disabled=\"\"></div></form></div></div><div class=\"window-module\"><div class=\"window-module-title window-module-title-no-divider\"><span class=\"window-module-title-icon icon-lg icon-activity\"></span><h3>Activity</h3></div><div class=\"js-list-actions list-comments\"></div></div></div><div class=\"window-sidebar\"><div class=\"window-module u-clearfix\"><h3>Add</h3><div class=\"u-clearfix\"><a class=\"button-link js-edit-labels\" href=\"#\"><span class=\"icon-sm icon-label\"></span>&nbsp;Labels</a><a class=\"button-link js-add-due-date\" href=\"#\"><span class=\"icon-sm icon-clock\"></span>&nbsp;Due Date</a></div></div><div class=\"window-module other-actions u-clearfix\"><h3>Actions</h3><div class=\"u-clearfix\"><a class=\"button-link js-move-card\" href=\"#\"><span class=\"icon-sm icon-move\"></span>&nbsp;Move</a><a class=\"button-link js-copy-card\" href=\"#\"><span class=\"icon-sm icon-card\"></span>&nbsp;Copy</a><div class=\"js-subscribe-sidebar-button\"><a class=\"button-link js-subscribe "
+    + ((stack1 = helpers["if"].call(alias3,((stack1 = (depth0 != null ? depth0.card : depth0)) != null ? stack1.subscribed : stack1),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\" title=\"Subscribe to the card to get notifications when something changes.\"><span class=\"icon-sm icon-subscribe\"></span>&nbsp;Subscribe<span class=\"on\"><span class=\"icon-sm icon-check light\"></span></span></a></div><a class=\"button-link js-archive-card\" href=\"#\"><span class=\"icon-sm icon-archive\"></span>&nbsp;Archive</a></div></div></div></div></div>";
+},"useData":true});
+
+this["JST"]["comment"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "<div class=\"phenom-creator\"><div class=\"member js-show-mem-menu\" idmember=\"5960fe60783922c510c83ede\"><span class=\"member-gold-badge\" title=\"This member has Trello Gold.\"></span></div></div><div class=\"phenom-desc\"><span class=\"inline-member js-show-mem-menu\" idmember=\"5960fe60783922c510c83ede\"><span class=\"u-font-weight-bold\">User</span></span><div class=\"comment-container\"><div class=\"action-comment markeddown js-comment\" dir=\"auto\"><div class=\"current-comment js-friendly-links js-open-card\"><p>"
+    + container.escapeExpression(((helper = (helper = helpers.text || (depth0 != null ? depth0.text : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"text","hash":{},"data":data}) : helper)))
+    + "</p></div></div></div></div><p class=\"phenom-meta quiet\"><span class=\"js-hide-on-sending\"><a class=\"js-confirm-delete-action\" href=\"#\">Delete</a></span></p>";
 },"useData":true});
 
 this["JST"]["copyCard"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -176,8 +178,37 @@ this["JST"]["moveList"] = Handlebars.template({"1":function(container,depth0,hel
     + "</select></div></div><input class=\"primary wide js-commit-position\" type=\"submit\" value=\"Move\"></form></div>";
 },"useData":true});
 
+this["JST"]["notification"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div class=\"phenom mod-comment-type\"><div class=\"phenom-creator\"><div class=\"member js-show-mem-menu\" idmember=\"5960fe60783922c510c83ede\"><span class=\"member-gold-badge\" title=\"This member has Trello Gold.\"></span></div></div><div class=\"phenom-desc\"><span class=\"inline-member js-show-mem-menu\" idmember=\"5960fe60783922c510c83ede\"><span class=\"u-font-weight-bold\">User</span></span> on <a class=\"action-card\" data-id=\""
+    + alias4(((helper = (helper = helpers.cardID || (depth0 != null ? depth0.cardID : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cardID","hash":{},"data":data}) : helper)))
+    + "\" href=\"#\">"
+    + alias4(((helper = (helper = helpers.card || (depth0 != null ? depth0.card : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"card","hash":{},"data":data}) : helper)))
+    + "</a><div class=\"comment-container\"><div class=\"action-comment markeddown js-comment is-truncated\" dir=\"auto\"><div class=\"current-comment js-friendly-links js-open-card\"><p>"
+    + alias4(((helper = (helper = helpers.text || (depth0 != null ? depth0.text : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"text","hash":{},"data":data}) : helper)))
+    + "</p></div></div></div></div></div>";
+},"3":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div class=\"phenom mod-other-type\"><div class=\"phenom-creator\"><div class=\"member js-show-mem-menu\" idmember=\"5960fe60783922c510c83ede\"><span class=\"member-gold-badge\" title=\"This member has Trello Gold.\"></span></div></div><div class=\"phenom-desc\"><span class=\"inline-member js-show-mem-menu\" idmember=\"5960fe60783922c510c83ede\"><span class=\"u-font-weight-bold\">User</span></span> "
+    + alias4(((helper = (helper = helpers.text || (depth0 != null ? depth0.text : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"text","hash":{},"data":data}) : helper)))
+    + " <a class=\"action-card\" data-id=\""
+    + alias4(((helper = (helper = helpers.cardID || (depth0 != null ? depth0.cardID : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cardID","hash":{},"data":data}) : helper)))
+    + "\" href=\"#\">"
+    + alias4(((helper = (helper = helpers.card || (depth0 != null ? depth0.card : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"card","hash":{},"data":data}) : helper)))
+    + "</a></div></div>";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options;
+
+  stack1 = ((helper = (helper = helpers.ifCommentType || (depth0 != null ? depth0.ifCommentType : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"ifCommentType","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  if (!helpers.ifCommentType) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  if (stack1 != null) { return stack1; }
+  else { return ''; }
+},"useData":true});
+
 this["JST"]["notifications"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"pop-over-header\"><span class=\"pop-header-title\">Notifications</span><a class=\"pop-close-btn\" href=\"#\"></a></div><div class=\"pop-over-content\"><p class=\"empty\" style=\"padding: 24px 6px;\"><span>No Notifications</span></p></div>";
+    return "<div class=\"pop-over-header\"><span class=\"pop-header-title\">Notifications</span><a class=\"pop-close-btn\" href=\"#\"></a></div><div class=\"pop-over-content\"><ul class=\"notifications\"></ul></div>";
 },"useData":true});
 
 this["JST"]["popOver"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

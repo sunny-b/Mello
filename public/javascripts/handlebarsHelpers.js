@@ -47,3 +47,11 @@ Handlebars.registerHelper('ifCurrentList', function(options) {
     return options.inverse(this);
   }
 });
+
+Handlebars.registerHelper('ifCommentType', function(options) {
+  if (this.type === 'comment') {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
+  }
+});
