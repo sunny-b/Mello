@@ -72,6 +72,7 @@ var ListView = Backbone.View.extend({
       },
       success: function(card) {
         self.collection.add(card);
+        App.trigger('incrementCardID');
       }
     });
   },

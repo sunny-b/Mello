@@ -7,6 +7,7 @@ var BoardModel = Backbone.Model.extend({
     return this.lists.get(id);
   },
   nextCardID: function() {
+    debugger;
     return this.get('lastCardID') + 1;
   },
   incrementCardID: function() {

@@ -207,6 +207,7 @@ var App = {
     this.on('moveCard', this.moveCard.bind(this));
     this.on('copyCard', this.copyCard.bind(this));
     this.on('addNotification', this.addNotification.bind(this));
+    this.on('incrementCardID', this.board.incrementCardID.bind(this.board));
   },
   init: function() {
     this.lists = this.board.lists;
