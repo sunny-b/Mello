@@ -66,8 +66,13 @@ var App = {
   renderCardModal: function(model) {
     this.closePopOver();
 
-    if (!(model instanceof CardModel)) {
+    if (this.isNotCardObject(model)) {
       model = this.retrieveCardByID(model);
+    }
+
+    if (this.isUnDefined(model)) {
+      alert('Card no longer exists');
+      return false;
     }
 
     this.cardModal = new CardModalView({
@@ -76,6 +81,12 @@ var App = {
     });
 
     this.$windowOverlay.html(this.cardModal.el).toggleClass('is-up');
+  },
+  isUnDefined: function(item) {
+    return item === undefined;
+  },
+  isNotCardObject: function(item) {
+    return !(item instanceof CardModel);
   },
   openCardEditor: function(card) {
     this.cardEditor = new QuickEditView({ model: card });
