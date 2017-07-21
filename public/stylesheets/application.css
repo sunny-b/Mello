@@ -189,7 +189,6 @@ main {
 }
 #board {
   position: relative;
-  overflow: hidden;
   height: 100%;
 }
 #board .board-canvas {
@@ -199,10 +198,6 @@ main {
   overflow-x: auto;
   white-space: nowrap;
   position: absolute;
-  bottom: 0;
-  top: 0;
-  right: 0;
-  left: 0;
 }
 #lists {
   display: flex;
